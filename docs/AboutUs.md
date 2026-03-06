@@ -50,7 +50,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Zhenghao Shi
 
-<img src="images/Zhenghao229.png" width="200px">
+<img src="images/zhenghao229.png" width="200px">
 
 [[github](http://github.com/Zhenghao229)]
 [[portfolio](team/Zhenghao.md)]
