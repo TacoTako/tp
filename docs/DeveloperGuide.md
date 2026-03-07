@@ -327,13 +327,9 @@ Use case ends.
 
 **Extensions**
 
-* 3a. User wants to edit or delete a shortcut.
-* 3a1. AddressMe skips steps 3 and 4 and goes to step 5 where User can delete a specified shortcut.
-
-
-* 3b. The command for the shortcut is invalid.
-* 3b1. When confirming the choice, AddressMe prompts the user that the command is invalid.
-* 3b2. AddressMe lets the user back to the menu with the invalid command.
+* 3a. The command for the shortcut is invalid.
+* 3a1. When confirming the choice, AddressMe prompts the user that the command is invalid.
+* 3a2. AddressMe lets the user back to the menu with the invalid command.
 Use case resumes at step 3.
 
 ---
