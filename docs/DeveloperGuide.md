@@ -262,11 +262,12 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
+* is a backpacker or traveller
+* has a need to systematically catalogue multiple travel destinations and points of interest
+* prefers lightweight desktop tools over visual-heavy travel apps
+* can type fast and values high-efficiency, keyboard-driven workflows
 * prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* is comfortable using CLI applications for structured and searchable itinerary planning
 
 **Value proposition**: It allows for much more efficient searching for destinations and planning routes between points, and a much more accessible and seamless UI for users to list, edit or delete the destinations (by contacts and address) they are interested in for overseas trips, leisure or social visits.
 
