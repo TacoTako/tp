@@ -262,11 +262,12 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
+* is a backpacker or traveller
+* has a need to systematically catalogue multiple travel destinations and points of interest
+* prefers lightweight desktop tools over visual-heavy travel apps
+* can type fast and values high-efficiency, keyboard-driven workflows
 * prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* is comfortable using CLI applications for structured and searchable itinerary planning
 
 **Value proposition**: It allows for much more efficient searching for destinations and planning routes between points, and a much more accessible and seamless UI for users to list, edit or delete the destinations (by contacts and address) they are interested in for overseas trips, leisure or social visits.
 
@@ -275,14 +276,42 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​                    | I want to …​                                                                  | So that I can…​                                                             |
+|----------|----------------------------|-------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| `* * *`  | user                       | add a new record with its address and contact details                         | have a central record of where to go next                                   |
+| `* * *`  | user                       | delete an existing record                                                     | remove unwanted entries                                                     |
+| `* * *`  | user                       | exit the program                                                              | -                                                                           |
+| `* * *`  | user                       | save my data                                                                  | revisit the app                                                             |
+| `* * *`  | user                       | edit details of a saved place                                                 | correct or update information                                               |
+| `* * *`  | experienced user           | use up and down arrows to echo my past commands                               | quickly retry commands that have a minor mistake                            |
+| `* * *`  | user                       | save my friends’ addresses                                                    | easier meetups and not have to store them separately from my travels        |
+| `* * *`  | student                    | handle my classwork that requires moving to mobile places                     | have a better plan without being confused about where to go next            |
+| `* *`    | user                       | add keywords/notes to specific addresses                                      | remember the details easily                                                 |
+| `* *`    | experienced user           | set shortcuts for my commands                                                 | use the app more efficiently                                                |
+| `* *`    | user                       | mark my destinations with dates                                               | get an overview of the whole day                                            |
+| `* *`    | food explorer              | manage restaurant recommendations                                             | easily keep track of their addresses and opening hours                      |
+| `* *`    | food explorer              | group restaurant recommendations                                              | sort them out by preference/some other metric                               |
+| `* *`    | new user                   | view a help message explaining the keyboard commands                          | quickly learn how to use the app                                            |
+| `* *`    | tech-savvy user            | use a single keyboard command to search for all "sightseeing" spots           | find my next destination fast and easily                                    |
+| `* *`    | cautious solo traveller    | store emergency contacts (embassy, hospital, local police)                    | access them quickly in urgent situations                                    |
+| `* *`    | user                       | change the application's colour (light/dark mode) and contrast                | read the content comfortably                                                |
+| `* *`    | user                       | pin important locations                                                       | quickly see my highest-priority entries                                     |
+| `* *`    | user with poor eyesight    | change my font size                                                           | see the content clearly                                                     |
+| `* *`    | user                       | edit phone numbers or addresses easily                                        | outdated contact details do not mislead me                                  |
+| `* *`    | clumsy user                | undo my previous actions                                                      | rectify any accidental commands                                             |
+| `* *`    | frequent traveller         | store different time zones                                                    | avoid making calls at inappropriate timings                                 |
+| `* *`    | solo traveller             | mark places as favorites                                                      | prioritize places I do not want to miss                                     |
+| `* *`    | user                       | archive places I have already visited                                         | keep my active list uncluttered                                             |
+| `* *`    | user                       | search for keywords in my contacts/addresses                                  | find one/several particular addresses without manual searching              |
+| `* *`    | user                       | tag different places based on groups (restaurants, attractions, hotels)       | filter for the type of location I am looking for                            |
+| `* *`    | concerned user             | mark destination information as verified or unverified                        | remember which destinations I have personally confirmed                     |
+| `*`      | user                       | group my destinations logically or manually                                   | view related destinations together                                          |
+| `*`      | user                       | sort saved places by distance                                                 | optimize my walking route and avoid backtracking                            |
+| `*`      | frequent planner/traveller | reliably set repeat trips (e.g. every second Sunday I'm going home)           | maintain regular routines like visiting family or planning frequent outings |
+| `*`      | user                       | attach notes to the places I’ve been                                          | remember if I enjoyed the place, or never want to go back                   |
+| `*`      | user                       | see my destinations in a schedule view                                        | easily visualize my itinerary                                               |
+| `*`      | user                       | attach and record my expenses                                                 | manage my budget                                                            |
+| `*`      | parent                     | organize my trip together with different users (family, friends, tour agency) | allow them to contribute ideas/routes for my trip                           |
 
 *{More to be added}*
 
