@@ -34,13 +34,17 @@ public class CliHistory {
      * @return the String before the current point in history, can be empty
      */
     public String getPrevious() {
+        System.out.println(history);
+        System.out.println(indexPointer);
+
         // no history yet
         if (history.isEmpty()) {
             return "";
         }
         // pointer not initialized, return latest command in history
         if (indexPointer == -1) {
-            return history.get(history.size() - 1);
+            indexPointer = history.size() - 1;
+            return history.get(indexPointer);
         }
         // pointer to the oldest command already, return itself
         if (indexPointer == 0) {
