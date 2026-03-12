@@ -20,7 +20,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a location to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a location to the AddressMe. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -28,15 +28,15 @@ public class AddCommand extends Command {
             + PREFIX_ADDRESS + "ADDRESS "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_NAME + "McDonalds Bugis "
+            + PREFIX_PHONE + "67773777 "
+            + PREFIX_EMAIL + "customercare@sg.mcd.com "
+            + PREFIX_ADDRESS + "113 Aljunied Ave 2 "
+            + PREFIX_TAG + "restaurant "
+            + PREFIX_TAG + "fastfood";
 
     public static final String MESSAGE_SUCCESS = "New location added: %1$s";
-    public static final String MESSAGE_DUPLICATE_LOCATION = "This location already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_LOCATION = "This location already exists in the AddressMe";
 
     private final Location toAdd;
 

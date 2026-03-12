@@ -35,7 +35,13 @@ public class AddCommandTest {
     @Test
     public void execute_locationAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingLocationAdded modelStub = new ModelStubAcceptingLocationAdded();
-        Location validLocation = new LocationBuilder().build();
+        Location validLocation = new LocationBuilder()
+                .withName("McDonalds Bugis")
+                .withPhone("67773777")
+                .withEmail("customercare@sg.mcd.com")
+                .withAddress("113 Aljunied Ave 2")
+                .withTags("restaurant", "fastfood")
+                .build();
 
         CommandResult commandResult = new AddCommand(validLocation).execute(modelStub);
 
@@ -46,7 +52,13 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicateLocation_throwsCommandException() {
-        Location validLocation = new LocationBuilder().build();
+        Location validLocation = new LocationBuilder()
+                .withName("McDonalds Bugis")
+                .withPhone("67773777")
+                .withEmail("customercare@sg.mcd.com")
+                .withAddress("113 Aljunied Ave 2")
+                .withTags("restaurant", "fastfood")
+                .build();
         AddCommand addCommand = new AddCommand(validLocation);
         ModelStub modelStub = new ModelStubWithLocation(validLocation);
 
@@ -56,26 +68,26 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Location alice = new LocationBuilder().withName("Alice").build();
-        Location bob = new LocationBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Location marinaBaySands = new LocationBuilder().withName("Marina Bay Sands").build();
+        Location gardensByTheBay = new LocationBuilder().withName("Gardens by the Bay").build();
+        AddCommand addMarinaBaySandsCommand = new AddCommand(marinaBaySands);
+        AddCommand addGardensByTheBayCommand = new AddCommand(gardensByTheBay);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addMarinaBaySandsCommand.equals(addMarinaBaySandsCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addMarinaBaySandsCommandCopy = new AddCommand(marinaBaySands);
+        assertTrue(addMarinaBaySandsCommand.equals(addMarinaBaySandsCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addMarinaBaySandsCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addMarinaBaySandsCommand.equals(null));
 
         // different location -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addMarinaBaySandsCommand.equals(addGardensByTheBayCommand));
     }
 
     @Test
