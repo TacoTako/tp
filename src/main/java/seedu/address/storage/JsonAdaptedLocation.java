@@ -108,7 +108,8 @@ class JsonAdaptedLocation {
         final Address modelAddress = new Address(address);
 
         if (visitDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, VisitDate.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    VisitDate.class.getSimpleName()));
         }
         if (!VisitDate.isValidVisitDate(visitDate)) {
             throw new IllegalValueException(VisitDate.MESSAGE_CONSTRAINTS);
