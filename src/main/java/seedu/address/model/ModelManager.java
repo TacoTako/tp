@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -22,6 +23,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Location> filteredLocations;
+    private final FilteredList<Location> plannerLocations;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +36,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredLocations = new FilteredList<>(this.addressBook.getLocationList());
+        plannerLocations = new FilteredList<>(this.addressBook.getLocationList());
     }
 
     public ModelManager() {
@@ -122,10 +125,23 @@ public class ModelManager implements Model {
         return filteredLocations;
     }
 
+    public ObservableList<Location> getPlannerLocationList() {
+        return plannerLocations;
+    }
+
     @Override
     public void updateFilteredLocationList(Predicate<Location> predicate) {
         requireNonNull(predicate);
         filteredLocations.setPredicate(predicate);
+    }
+
+    /**
+     * TODO: Updates planner list to show locations with a specific date
+     * @param date LocalDate to find
+     */
+    public void updatePlannerLocationList(LocalDate date) {
+        requireNonNull(date);
+        plannerLocations.setPredicate(location -> location.getVisitDate().getValue().equals(date));
     }
 
     @Override

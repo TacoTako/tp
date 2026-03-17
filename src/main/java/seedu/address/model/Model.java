@@ -14,6 +14,10 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Location> PREDICATE_SHOW_ALL_LOCATIONS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to false */
+    Predicate<Location> PREDICATE_HIDE_ALL_LOCATIONS = unused -> false;
+
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
