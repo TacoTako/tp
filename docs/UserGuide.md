@@ -119,16 +119,17 @@ Examples:
 
 ### Locating locations by name or other attributes: `find`
 
-Finds locations whose attributes match all of the given parameters (AND semantics). Within each parameter, multiple keywords can be specified, and locations matching any of those keywords will be returned (OR semantics).
+Finds locations whose attributes match all of the given parameters (AND semantics across all specified prefixes and repeated prefixes). Unprefixed keywords before any prefix are treated as name keywords combined with OR semantics.
 
 Format: `find [KEYWORD] [MORE_KEYWORDS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [d/DATE]`
 
 * The search is case-insensitive. e.g `thai` will match `Thai Pavilion`
-* The order of the keywords does not matter. e.g. `Restaurant Marina` will match `Marina Restaurant`
-* **Substring matching is supported** for all text-based fields (Name, Phone, Email, Address, Tag).
-* Multiple prefixes can be used to narrow down the search (AND semantics). e.g., `n/Bakery t/Halal` will find locations that have "Bakery" in their name AND have the "Halal" tag.
-* For the same prefix or the preamble (name only), multiple keywords will match locations that contain at least one of those keywords (OR semantics). e.g., `find Ramen Cafe` will return `Ramen House`, `Cafe Mocha`.
-* **Date search** (`d/`) requires the date to be in `YYYY-MM-DD` format and matches the last visit date exactly.
+* The order of the unprefixed name keywords (the preamble) does not matter. e.g. `Restaurant Marina` will match `Marina Restaurant`.
+* **Substring matching is supported** for Name, Phone, Email, and Address. Tag matching is exact but case-insensitive.
+* Multiple prefixes (and multiple occurrences of the same prefix) can be used to narrow down the search using AND semantics. e.g., `n/Bakery t/Halal t/Vegetarian` will find locations that have "Bakery" in their name AND have both the "Halal" and "Vegetarian" tags.
+* Only the unprefixed name keywords use OR semantics: a location matches if its name contains at least one of those keywords. e.g., `find Ramen Cafe` will return `Ramen House`, `Cafe Mocha`.
+* Each prefixed value (`n/`, `p/`, `e/`, `a/`, `t/`, `d/`) is treated as a single search string, even if it contains spaces (no further splitting into keywords is done).
+* **Date search** (`d/`) accepts any date format or keyword supported by AddressMe’s date parser (including formats like `YYYY-MM-DD` and `DD/MM/YYYY`, e.g. `15/01/2024`) and matches the last visit date exactly (no range or partial matching).
 
 Examples:
 * `find Restaurant` returns all locations with "Restaurant" in the name.
