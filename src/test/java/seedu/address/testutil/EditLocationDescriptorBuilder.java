@@ -100,12 +100,42 @@ public class EditLocationDescriptorBuilder {
         return this;
     }
 
+    /**
+     * Parses the {@code visitDates} into a {@code Set<VisitDate>} and
+     * give it to the {@code EditLocationDescriptor}
+     * that we are building.
+     */
+    public EditLocationDescriptorBuilder withVisitDatesToAdd(String... visitDates) {
+        Set<VisitDate> visitDateSet = Stream.of(visitDates).map(VisitDate::new).collect(Collectors.toSet());
+        descriptor.setVisitDatesToAdd(visitDateSet);
+        return this;
+    }
+
+    /**
+     * Parses the {@code visitDates} into a {@code Set<VisitDate>} and
+     * give it to the {@code EditLocationDescriptor}
+     * that we are building.
+     */
+    public EditLocationDescriptorBuilder withVisitDatesToRemove(String... visitDates) {
+        Set<VisitDate> visitDateSet = Stream.of(visitDates).map(VisitDate::new).collect(Collectors.toSet());
+        descriptor.setVisitDatesToRemove(visitDateSet);
+        return this;
+    }
+
+    /**
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditLocationDescriptor}
+     * that we are building.
+     */
     public EditLocationDescriptorBuilder withTagsToAdd(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTagsToAdd(tagSet);
         return this;
     }
 
+    /**
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditLocationDescriptor}
+     * that we are building.
+     */
     public EditLocationDescriptorBuilder withTagsToRemove(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTagsToRemove(tagSet);

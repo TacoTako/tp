@@ -55,6 +55,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_LOCATION = "This location already exists in the address book.";
     public static final String MESSAGE_CANNOT_OVERRIDE_AND_MODIFY_TAGS = "Cannot combine t/ with t+/ or t-/";
+    public static final String MESSAGE_CANNOT_OVERRIDE_AND_MODIFY_DATES = "Cannot combine d/ with d+/ or d-/";
 
     private final Index index;
     private final EditLocationDescriptor editLocationDescriptor;
@@ -104,8 +105,16 @@ public class EditCommand extends Command {
         Phone updatedPhone = editLocationDescriptor.getPhone().orElse(locationToEdit.getPhone());
         Email updatedEmail = editLocationDescriptor.getEmail().orElse(locationToEdit.getEmail());
         Address updatedAddress = editLocationDescriptor.getAddress().orElse(locationToEdit.getAddress());
-        Set<VisitDate> updatedVisitDates =
-                new HashSet<>(editLocationDescriptor.getVisitDates().orElse(locationToEdit.getVisitDates()));
+
+        Set<VisitDate> updatedVisitDates;
+
+        if (editLocationDescriptor.getTags().isPresent()) {
+            updatedVisitDates = new HashSet<>(editLocationDescriptor.getVisitDates().get());
+        } else {
+            updatedVisitDates = new HashSet<>(locationToEdit.getVisitDates());
+            editLocationDescriptor.getVisitDatesToAdd().ifPresent(updatedVisitDates::addAll);
+            editLocationDescriptor.getVisitDatesToRemove().ifPresent(updatedVisitDates::removeAll);
+        }
 
         Set<Tag> updatedTags;
 
@@ -156,6 +165,9 @@ public class EditCommand extends Command {
         private Set<VisitDate> visitDates;
         private Set<Tag> tags;
 
+        private Set<VisitDate> visitDatesToAdd;
+        private Set<VisitDate> visitDatesToRemove;
+
         private Set<Tag> tagsToAdd;
         private Set<Tag> tagsToRemove;
 
@@ -171,6 +183,8 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setVisitDates(toCopy.visitDates);
+            setVisitDatesToAdd(toCopy.visitDatesToAdd);
+            setVisitDatesToRemove(toCopy.visitDatesToRemove);
             setTags(toCopy.tags);
             setTagsToAdd(toCopy.tagsToAdd);
             setTagsToRemove(toCopy.tagsToRemove);
@@ -182,6 +196,7 @@ public class EditCommand extends Command {
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(
                     name, phone, email, address, visitDates, tags,
+                    visitDatesToAdd, visitDatesToRemove,
                     tagsToAdd, tagsToRemove
             );
         }
@@ -234,6 +249,24 @@ public class EditCommand extends Command {
             this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
 
+        public void setVisitDatesToAdd(Set<VisitDate> visitDatesToAdd) {
+            this.visitDatesToAdd = (visitDatesToAdd != null) ? new HashSet<>(visitDatesToAdd) : null;
+        }
+
+        public Optional<Set<VisitDate>> getVisitDatesToAdd() {
+            return (visitDatesToAdd != null)
+                    ? Optional.of(Collections.unmodifiableSet(visitDatesToAdd)) : Optional.empty();
+        }
+
+        public void setVisitDatesToRemove(Set<VisitDate> visitDatesToRemove) {
+            this.visitDatesToRemove = (visitDatesToRemove != null) ? new HashSet<>(visitDatesToRemove) : null;
+        }
+
+        public Optional<Set<VisitDate>> getVisitDatesToRemove() {
+            return (visitDatesToRemove != null)
+                    ? Optional.of(Collections.unmodifiableSet(visitDatesToRemove)) : Optional.empty();
+        }
+
         /**
          * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
@@ -276,6 +309,8 @@ public class EditCommand extends Command {
                     && Objects.equals(email, otherEditLocationDescriptor.email)
                     && Objects.equals(address, otherEditLocationDescriptor.address)
                     && Objects.equals(visitDates, otherEditLocationDescriptor.visitDates)
+                    && Objects.equals(visitDatesToAdd, otherEditLocationDescriptor.visitDatesToAdd)
+                    && Objects.equals(visitDatesToRemove, otherEditLocationDescriptor.visitDatesToRemove)
                     && Objects.equals(tags, otherEditLocationDescriptor.tags)
                     && Objects.equals(tagsToAdd, otherEditLocationDescriptor.tagsToAdd)
                     && Objects.equals(tagsToRemove, otherEditLocationDescriptor.tagsToRemove);
@@ -289,6 +324,8 @@ public class EditCommand extends Command {
                     .add("email", email)
                     .add("address", address)
                     .add("visitDates", visitDates)
+                    .add("visitDatesToAdd", visitDatesToAdd)
+                    .add("visitDatesToRemove", visitDatesToRemove)
                     .add("tags", tags)
                     .add("tagsToAdd", tagsToAdd)
                     .add("tagsToRemove", tagsToRemove)

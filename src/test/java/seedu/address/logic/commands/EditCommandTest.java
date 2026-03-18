@@ -283,4 +283,33 @@ public class EditCommandTest {
         assertEditSuccess(INDEX_FIRST_LOCATION, descriptor, editedLocation);
     }
 
+    @Test
+    public void execute_addDateUnfilteredList_success() {
+        Location locationToEdit = model.getFilteredLocationList().get(INDEX_FIRST_LOCATION.getZeroBased());
+        Location editedLocation = new LocationBuilder(locationToEdit)
+                .withVisitDates("2026-01-07", "2026-01-10", "2026-02-10")
+                .build();
+
+        EditLocationDescriptor descriptor = new EditLocationDescriptorBuilder()
+                .withVisitDatesToAdd("2026-02-10")
+                .build();
+
+        assertEditSuccess(INDEX_FIRST_LOCATION, descriptor, editedLocation);
+    }
+
+    @Test
+    public void execute_addAndRemoveSameDateUnfilteredList_success() {
+        Location locationToEdit = model.getFilteredLocationList().get(INDEX_FIRST_LOCATION.getZeroBased());
+        Location editedLocation = new LocationBuilder(locationToEdit)
+                .withVisitDates("2026-01-07")
+                .build();
+
+        EditLocationDescriptor descriptor = new EditLocationDescriptorBuilder()
+                .withVisitDatesToAdd("2026-01-10")
+                .withVisitDatesToRemove("2026-01-10")
+                .build();
+
+        assertEditSuccess(INDEX_FIRST_LOCATION, descriptor, editedLocation);
+    }
+
 }

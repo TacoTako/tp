@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_ADD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_REMOVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -20,8 +22,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditLocationDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.location.VisitDate;
+import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -38,6 +40,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
                         PREFIX_DATE, PREFIX_TAG,
+                        PREFIX_DATE_ADD, PREFIX_DATE_REMOVE,
                         PREFIX_TAG_ADD, PREFIX_TAG_REMOVE);
 
         Index index;
@@ -49,6 +52,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
+        validateVisitDatePrefixCombination(argMultimap);
         validateTagPrefixCombination(argMultimap);
 
         EditLocationDescriptor editLocationDescriptor = new EditLocationDescriptor();
@@ -67,6 +71,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         parseVisitDatesForEdit(argMultimap.getAllValues(PREFIX_DATE))
                 .ifPresent(editLocationDescriptor::setVisitDates);
+        parseVisitDatesForEdit(argMultimap.getAllValues(PREFIX_DATE_ADD))
+                .ifPresent(editLocationDescriptor::setVisitDatesToAdd);
+        parseVisitDatesForEdit(argMultimap.getAllValues(PREFIX_DATE_REMOVE))
+                .ifPresent(editLocationDescriptor::setVisitDatesToRemove);
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editLocationDescriptor::setTags);
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG_ADD))
@@ -81,6 +89,16 @@ public class EditCommandParser implements Parser<EditCommand> {
         return new EditCommand(index, editLocationDescriptor);
     }
 
+    private void validateVisitDatePrefixCombination(ArgumentMultimap argMultimap) throws ParseException {
+        boolean hasVisitDateOverride = !argMultimap.getAllValues(PREFIX_DATE).isEmpty();
+        boolean hasVisitDateAdd = !argMultimap.getAllValues(PREFIX_DATE_ADD).isEmpty();
+        boolean hasVisitDateRemove = !argMultimap.getAllValues(PREFIX_DATE_REMOVE).isEmpty();
+
+        if (hasVisitDateOverride && (hasVisitDateAdd || hasVisitDateRemove)) {
+            throw new ParseException(EditCommand.MESSAGE_CANNOT_OVERRIDE_AND_MODIFY_DATES);
+        }
+    }
+
     private void validateTagPrefixCombination(ArgumentMultimap argMultimap) throws ParseException {
         boolean hasTagOverride = !argMultimap.getAllValues(PREFIX_TAG).isEmpty();
         boolean hasTagAdd = !argMultimap.getAllValues(PREFIX_TAG_ADD).isEmpty();
@@ -89,22 +107,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (hasTagOverride && (hasTagAdd || hasTagRemove)) {
             throw new ParseException(EditCommand.MESSAGE_CANNOT_OVERRIDE_AND_MODIFY_TAGS);
         }
-    }
-
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
-     */
-    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
-        assert tags != null;
-
-        if (tags.isEmpty()) {
-            return Optional.empty();
-        }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(ParserUtil.parseTags(tagSet));
     }
 
     private Optional<Set<VisitDate>> parseVisitDatesForEdit(Collection<String> visitDates) throws ParseException {
@@ -120,6 +122,21 @@ public class EditCommandParser implements Parser<EditCommand> {
                         : visitDates;
 
         return Optional.of(ParserUtil.parseVisitDates(visitDateSet));
+    }
+
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
+     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<Tag>} containing zero tags.
+     */
+    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
+        assert tags != null;
+
+        if (tags.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
+        return Optional.of(ParserUtil.parseTags(tagSet));
     }
 
 }
