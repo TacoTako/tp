@@ -108,7 +108,7 @@ public class EditCommand extends Command {
 
         Set<VisitDate> updatedVisitDates;
 
-        if (editLocationDescriptor.getTags().isPresent()) {
+        if (editLocationDescriptor.getVisitDates().isPresent()) {
             updatedVisitDates = new HashSet<>(editLocationDescriptor.getVisitDates().get());
         } else {
             updatedVisitDates = new HashSet<>(locationToEdit.getVisitDates());
