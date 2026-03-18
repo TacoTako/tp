@@ -35,6 +35,39 @@ public class FindCommandParserTest {
     }
 
     @Test
+    public void parse_emptyPrefixValues_throwsParseException() {
+        // empty name prefix
+        assertParseFailure(parser, " " + PREFIX_NAME,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+
+        // empty phone prefix
+        assertParseFailure(parser, " " + PREFIX_PHONE,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+
+        // empty email prefix
+        assertParseFailure(parser, " " + PREFIX_EMAIL,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+
+        // empty address prefix
+        assertParseFailure(parser, " " + PREFIX_ADDRESS,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+
+        // empty tag prefix
+        assertParseFailure(parser, " " + PREFIX_TAG,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+
+        // empty date prefix
+        assertParseFailure(parser, " " + PREFIX_DATE,
+                DateParser.MESSAGE_WRONG_DATE_FORMAT + System.lineSeparator() + FindCommand.MESSAGE_USAGE);
+
+        // blank values
+        assertParseFailure(parser, " " + PREFIX_NAME + "  ",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_DATE + "  ",
+                DateParser.MESSAGE_WRONG_DATE_FORMAT + System.lineSeparator() + FindCommand.MESSAGE_USAGE);
+    }
+
+    @Test
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
         FindCommand expectedFindCommand =

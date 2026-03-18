@@ -95,7 +95,7 @@ public class FindCommandParser implements Parser<FindCommand> {
             try {
                 predicates.add(new VisitDateMatchesKeywordsPredicate(DateParser.parse(dateKeyword)));
             } catch (IllegalValueException e) {
-                throw new ParseException(e.getMessage());
+                throw new ParseException(e.getMessage() + System.lineSeparator() + FindCommand.MESSAGE_USAGE);
             }
         }
 

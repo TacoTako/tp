@@ -28,7 +28,7 @@ public class FindCommand extends Command {
     private final Predicate<Location> predicate;
 
     public FindCommand(Predicate<Location> predicate) {
-        this.predicate = predicate;
+        this.predicate = requireNonNull(predicate);
     }
 
     @Override

@@ -117,26 +117,26 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st location to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd location to be `Betsy Crower` and clears all existing tags.
 
-### Locating locations by name: `find`
+### Locating locations by name or other attributes: `find`
 
-Finds locations whose names contain any of the given keywords using substring matching.
+Finds locations whose attributes match all of the given parameters (AND semantics). Within each parameter, multiple keywords can be specified, and locations matching any of those keywords will be returned (OR semantics).
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find [KEYWORD] [MORE_KEYWORDS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [d/DATE]`
 
 * The search is case-insensitive. e.g `thai` will match `Thai Pavilion`
 * The order of the keywords does not matter. e.g. `Restaurant Marina` will match `Marina Restaurant`
-* Only the name is searched.
-* **Substring matching is supported** e.g. `Han` will match `Hanjin Hotel`, `Jo` will match `John's Brewery`, `ast` will match `Castle Museum`
-* Locations matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Ramen Cafe` will return `Ramen House`, `Cafe Mocha`
+* **Substring matching is supported** for all text-based fields (Name, Phone, Email, Address, Tag).
+* Multiple prefixes can be used to narrow down the search (AND semantics). e.g., `n/Bakery t/Halal` will find locations that have "Bakery" in their name AND have the "Halal" tag.
+* For the same prefix or the preamble (name only), multiple keywords will match locations that contain at least one of those keywords (OR semantics). e.g., `find Ramen Cafe` will return `Ramen House`, `Cafe Mocha`.
+* **Date search** (`d/`) requires the date to be in `YYYY-MM-DD` format and matches the last visit date exactly.
 
 Examples:
-* `find Restaurant` returns all locations with "Restaurant" in the name
-* `find Han` returns `Hanjin Hotel`, `Hana Sushi` (substring prefix match)
-* `find otel` returns all locations with "otel" such as `Hotel Marina`, `Motel Inn` (substring middle match)
-* `find Marina Beach` returns `Marina Park`, `Beach Resort`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
-* `find Ramen` returns all ramen restaurants (substring matching without requiring full word)
+* `find Restaurant` returns all locations with "Restaurant" in the name.
+* `find n/Hanjin p/9123` returns locations with "Hanjin" in the name AND "9123" in the phone number.
+* `find t/Japanese t/Halal` returns locations that have BOTH "Japanese" AND "Halal" tags.
+* `find d/2023-10-15` returns locations last visited on 15th Oct 2023.
+* `find Marina Beach` returns `Marina Park`, `Beach Resort` (OR search for names).
+* `find n/Cafe e/gmail.com` returns all cafes with a Gmail address.
 
 ### Deleting a location : `delete`
 
@@ -223,6 +223,6 @@ Action | Format, Examples
 **Clear** | `clear`
 **Delete** | `delete INDEX [MORE_INDEXES]...`<br> e.g., `delete 3` or `delete 1 2 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find** | `find [KEYWORD] [MORE_KEYWORDS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [d/DATE]`<br> e.g., `find n/Cafe t/Halal`
 **List** | `list`
 **Help** | `help`
