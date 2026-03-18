@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandDatabase;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
@@ -33,6 +34,7 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final AddressBookParser addressBookParser;
     private final CliHistory cliHistory;
+    private final ShortcutManager shortcutManager;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -42,6 +44,7 @@ public class LogicManager implements Logic {
         this.storage = storage;
         this.cliHistory = new CliHistory();
         addressBookParser = new AddressBookParser();
+        shortcutManager = new ShortcutManager(model, new CommandDatabase());
     }
 
     @Override
@@ -50,11 +53,13 @@ public class LogicManager implements Logic {
         cliHistory.addInput(commandText);
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        String expandedCommandText = shortcutManager.expandShortcut(commandText);
+        Command command = addressBookParser.parseCommand(expandedCommandText);
         commandResult = command.execute(model);
 
         try {
             storage.saveAddressBook(model.getAddressBook());
+            storage.saveUserPrefs(model.getUserPrefs());
         } catch (AccessDeniedException e) {
             throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
         } catch (IOException ioe) {
