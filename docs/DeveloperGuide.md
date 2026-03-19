@@ -462,12 +462,6 @@ Use case ends.
 Use case ends.
 
 
-**2c. The alias definition creates an invalid reference structure.**  
-(e.g. recursive, circular, or chained alias definitions that lead to ambiguity)  
-2c1. AddressMe rejects the definition and shows an error message.  
-Use case ends.
-
-
 **3a. Saving the shortcut fails due to a storage I/O error.**  
 3a1. AddressMe shows an error message and does not persist the shortcut.  
 Use case ends.

@@ -46,7 +46,7 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
-     * Returns a copy of the user-defined shortcuts.
+     * Returns an unmodifiable view of the user-defined shortcuts.
      */
     Map<String, String> getShortcutMap();
 
