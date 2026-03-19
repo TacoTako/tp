@@ -38,7 +38,10 @@ public class JsonAdaptedLocationTest {
     private static final String VALID_EMAIL = BENSON.getEmail().map(Object::toString).orElse("benson@example.com");
     private static final String VALID_ADDRESS = BENSON.getAddress().map(Object::toString).orElse("311, Clementi Ave 2");
     private static final String VALID_POSTAL_CODE = BENSON.getPostalCode().map(Object::toString).orElse("123456");
-    private static final String VALID_VISIT_DATE = BENSON.getVisitDate().map(Object::toString).orElse("2026-03-12");
+
+    private static final List<String> VALID_VISIT_DATES = BENSON.getVisitDates().stream()
+            .map(VisitDate::toString)
+            .collect(Collectors.toList());
 
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
@@ -50,32 +53,11 @@ public class JsonAdaptedLocationTest {
         Location result = location.toModelType();
 
         assertEquals(BENSON.getName(), result.getName());
-
-        assertEquals(
-                BENSON.getPhone().map(Phone::toString),
-                result.getPhone().map(Phone::toString)
-        );
-
-        assertEquals(
-                BENSON.getEmail().map(Email::toString),
-                result.getEmail().map(Email::toString)
-        );
-
-        assertEquals(
-                BENSON.getAddress().map(Address::toString),
-                result.getAddress().map(Address::toString)
-        );
-
-        assertEquals(
-                BENSON.getPostalCode().map(PostalCode::toString),
-                result.getPostalCode().map(PostalCode::toString)
-        );
-
-        assertEquals(
-                BENSON.getVisitDate().map(VisitDate::toString),
-                result.getVisitDate().map(VisitDate::toString)
-        );
-
+        assertEquals(BENSON.getPhone(), result.getPhone());
+        assertEquals(BENSON.getEmail(), result.getEmail());
+        assertEquals(BENSON.getAddress(), result.getAddress());
+        assertEquals(BENSON.getPostalCode(), result.getPostalCode());
+        assertEquals(BENSON.getVisitDates(), result.getVisitDates());
         assertEquals(BENSON.getTags(), result.getTags());
     }
 
@@ -83,7 +65,7 @@ public class JsonAdaptedLocationTest {
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedLocation location =
                 new JsonAdaptedLocation(INVALID_NAME, VALID_PHONE, VALID_EMAIL,
-                        VALID_ADDRESS, VALID_POSTAL_CODE, VALID_VISIT_DATE, VALID_TAGS);
+                        VALID_ADDRESS, VALID_POSTAL_CODE, VALID_VISIT_DATES, VALID_TAGS);
 
         assertThrows(IllegalValueException.class, Name.MESSAGE_CONSTRAINTS, location::toModelType);
     }
@@ -92,7 +74,7 @@ public class JsonAdaptedLocationTest {
     public void toModelType_nullName_throwsIllegalValueException() {
         JsonAdaptedLocation location =
                 new JsonAdaptedLocation(null, VALID_PHONE, VALID_EMAIL,
-                        VALID_ADDRESS, VALID_POSTAL_CODE, VALID_VISIT_DATE, VALID_TAGS);
+                        VALID_ADDRESS, VALID_POSTAL_CODE, VALID_VISIT_DATES, VALID_TAGS);
 
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, location::toModelType);
@@ -102,7 +84,7 @@ public class JsonAdaptedLocationTest {
     public void toModelType_invalidPhone_throwsIllegalValueException() {
         JsonAdaptedLocation location =
                 new JsonAdaptedLocation(VALID_NAME, INVALID_PHONE, VALID_EMAIL,
-                        VALID_ADDRESS, VALID_POSTAL_CODE, VALID_VISIT_DATE, VALID_TAGS);
+                        VALID_ADDRESS, VALID_POSTAL_CODE, VALID_VISIT_DATES, VALID_TAGS);
 
         assertThrows(IllegalValueException.class, Phone.MESSAGE_CONSTRAINTS, location::toModelType);
     }
@@ -111,7 +93,7 @@ public class JsonAdaptedLocationTest {
     public void toModelType_nullPhone_returnsEmptyOptional() throws Exception {
         JsonAdaptedLocation location =
                 new JsonAdaptedLocation(VALID_NAME, null, VALID_EMAIL,
-                        VALID_ADDRESS, VALID_POSTAL_CODE, VALID_VISIT_DATE, VALID_TAGS);
+                        VALID_ADDRESS, VALID_POSTAL_CODE, VALID_VISIT_DATES, VALID_TAGS);
 
         assertTrue(location.toModelType().getPhone().isEmpty());
     }
@@ -120,7 +102,7 @@ public class JsonAdaptedLocationTest {
     public void toModelType_invalidEmail_throwsIllegalValueException() {
         JsonAdaptedLocation location =
                 new JsonAdaptedLocation(VALID_NAME, VALID_PHONE, INVALID_EMAIL,
-                        VALID_ADDRESS, VALID_POSTAL_CODE, VALID_VISIT_DATE, VALID_TAGS);
+                        VALID_ADDRESS, VALID_POSTAL_CODE, VALID_VISIT_DATES, VALID_TAGS);
 
         assertThrows(IllegalValueException.class, Email.MESSAGE_CONSTRAINTS, location::toModelType);
     }
@@ -129,7 +111,7 @@ public class JsonAdaptedLocationTest {
     public void toModelType_nullEmail_returnsEmptyOptional() throws Exception {
         JsonAdaptedLocation location =
                 new JsonAdaptedLocation(VALID_NAME, VALID_PHONE, null,
-                        VALID_ADDRESS, VALID_POSTAL_CODE, VALID_VISIT_DATE, VALID_TAGS);
+                        VALID_ADDRESS, VALID_POSTAL_CODE, VALID_VISIT_DATES, VALID_TAGS);
 
         assertTrue(location.toModelType().getEmail().isEmpty());
     }
@@ -138,7 +120,7 @@ public class JsonAdaptedLocationTest {
     public void toModelType_invalidAddress_throwsIllegalValueException() {
         JsonAdaptedLocation location =
                 new JsonAdaptedLocation(VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                        INVALID_ADDRESS, VALID_POSTAL_CODE, VALID_VISIT_DATE, VALID_TAGS);
+                        INVALID_ADDRESS, VALID_POSTAL_CODE, VALID_VISIT_DATES, VALID_TAGS);
 
         assertThrows(IllegalValueException.class, Address.MESSAGE_CONSTRAINTS, location::toModelType);
     }
@@ -147,7 +129,7 @@ public class JsonAdaptedLocationTest {
     public void toModelType_nullAddress_returnsEmptyOptional() throws Exception {
         JsonAdaptedLocation location =
                 new JsonAdaptedLocation(VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                        null, VALID_POSTAL_CODE, VALID_VISIT_DATE, VALID_TAGS);
+                        null, VALID_POSTAL_CODE, VALID_VISIT_DATES, VALID_TAGS);
 
         assertTrue(location.toModelType().getAddress().isEmpty());
     }
@@ -156,7 +138,7 @@ public class JsonAdaptedLocationTest {
     public void toModelType_invalidPostalCode_throwsIllegalValueException() {
         JsonAdaptedLocation location =
                 new JsonAdaptedLocation(VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                        VALID_ADDRESS, INVALID_POSTAL_CODE, VALID_VISIT_DATE, VALID_TAGS);
+                        VALID_ADDRESS, INVALID_POSTAL_CODE, VALID_VISIT_DATES, VALID_TAGS);
 
         assertThrows(IllegalValueException.class, PostalCode.MESSAGE_CONSTRAINTS, location::toModelType);
     }
@@ -165,18 +147,30 @@ public class JsonAdaptedLocationTest {
     public void toModelType_nullPostalCode_returnsEmptyOptional() throws Exception {
         JsonAdaptedLocation location =
                 new JsonAdaptedLocation(VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                        VALID_ADDRESS, null, VALID_VISIT_DATE, VALID_TAGS);
+                        VALID_ADDRESS, null, VALID_VISIT_DATES, VALID_TAGS);
 
         assertTrue(location.toModelType().getPostalCode().isEmpty());
     }
 
     @Test
-    public void toModelType_nullVisitDate_returnsEmptyOptional() throws Exception {
+    public void toModelType_invalidVisitDate_throwsIllegalValueException() {
+        List<String> invalidVisitDates = new ArrayList<>(VALID_VISIT_DATES);
+        invalidVisitDates.add(INVALID_VISIT_DATE);
+
+        JsonAdaptedLocation location =
+                new JsonAdaptedLocation(VALID_NAME, VALID_PHONE, VALID_EMAIL,
+                        VALID_ADDRESS, VALID_POSTAL_CODE, invalidVisitDates, VALID_TAGS);
+
+        assertThrows(IllegalValueException.class, VisitDate.MESSAGE_CONSTRAINTS, location::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullVisitDates_returnsEmptySet() throws Exception {
         JsonAdaptedLocation location =
                 new JsonAdaptedLocation(VALID_NAME, VALID_PHONE, VALID_EMAIL,
                         VALID_ADDRESS, VALID_POSTAL_CODE, null, VALID_TAGS);
 
-        assertTrue(location.toModelType().getVisitDate().isEmpty());
+        assertTrue(location.toModelType().getVisitDates().isEmpty());
     }
 
     @Test
@@ -186,7 +180,7 @@ public class JsonAdaptedLocationTest {
 
         JsonAdaptedLocation location =
                 new JsonAdaptedLocation(VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                        VALID_ADDRESS, VALID_POSTAL_CODE, VALID_VISIT_DATE, invalidTags);
+                        VALID_ADDRESS, VALID_POSTAL_CODE, VALID_VISIT_DATES, invalidTags);
 
         assertThrows(IllegalValueException.class, location::toModelType);
     }

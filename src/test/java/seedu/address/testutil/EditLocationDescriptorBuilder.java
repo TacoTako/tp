@@ -39,65 +39,84 @@ public class EditLocationDescriptorBuilder {
         location.getEmail().ifPresent(descriptor::setEmail);
         location.getAddress().ifPresent(descriptor::setAddress);
         location.getPostalCode().ifPresent(descriptor::setPostalCode);
-        location.getVisitDate().ifPresent(descriptor::setVisitDate);
+        descriptor.setVisitDates(location.getVisitDates());
         descriptor.setTags(location.getTags());
     }
 
-    /**
-     * Sets the {@code Name} of the {@code EditLocationDescriptor} that we are building.
-     */
     public EditLocationDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
         return this;
     }
 
-    /**
-     * Sets the {@code Phone} of the {@code EditLocationDescriptor} that we are building.
-     */
     public EditLocationDescriptorBuilder withPhone(String phone) {
         descriptor.setPhone(new Phone(phone));
         return this;
     }
 
-    /**
-     * Sets the {@code Email} of the {@code EditLocationDescriptor} that we are building.
-     */
     public EditLocationDescriptorBuilder withEmail(String email) {
         descriptor.setEmail(new Email(email));
         return this;
     }
 
-    /**
-     * Sets the {@code Address} of the {@code EditLocationDescriptor} that we are building.
-     */
     public EditLocationDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));
         return this;
     }
 
-    /**
-     * Sets the {@code PostalCode} of the {@code EditLocationDescriptor} that we are building.
-     */
     public EditLocationDescriptorBuilder withPostalCode(String postalCode) {
         descriptor.setPostalCode(new PostalCode(postalCode));
         return this;
     }
 
     /**
-     * Sets the {@code VisitDate} of the {@code EditLocationDescriptor} that we are building.
+     * Sets visit dates (override)
      */
-    public EditLocationDescriptorBuilder withVisitDate(String visitDate) {
-        descriptor.setVisitDate(new VisitDate(visitDate));
+    public EditLocationDescriptorBuilder withVisitDates(String... visitDates) {
+        Set<VisitDate> visitDateSet =
+                Stream.of(visitDates).map(VisitDate::new).collect(Collectors.toSet());
+        descriptor.setVisitDates(visitDateSet);
         return this;
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditLocationDescriptor}
-     * that we are building.
+     * Convenience method (keep for compatibility)
      */
+    public EditLocationDescriptorBuilder withVisitDate(String visitDate) {
+        return withVisitDates(visitDate);
+    }
+
     public EditLocationDescriptorBuilder withTags(String... tags) {
-        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
+        Set<Tag> tagSet =
+                Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
+        return this;
+    }
+
+    public EditLocationDescriptorBuilder withVisitDatesToAdd(String... visitDates) {
+        Set<VisitDate> visitDateSet =
+                Stream.of(visitDates).map(VisitDate::new).collect(Collectors.toSet());
+        descriptor.setVisitDatesToAdd(visitDateSet);
+        return this;
+    }
+
+    public EditLocationDescriptorBuilder withVisitDatesToRemove(String... visitDates) {
+        Set<VisitDate> visitDateSet =
+                Stream.of(visitDates).map(VisitDate::new).collect(Collectors.toSet());
+        descriptor.setVisitDatesToRemove(visitDateSet);
+        return this;
+    }
+
+    public EditLocationDescriptorBuilder withTagsToAdd(String... tags) {
+        Set<Tag> tagSet =
+                Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
+        descriptor.setTagsToAdd(tagSet);
+        return this;
+    }
+
+    public EditLocationDescriptorBuilder withTagsToRemove(String... tags) {
+        Set<Tag> tagSet =
+                Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
+        descriptor.setTagsToRemove(tagSet);
         return this;
     }
 

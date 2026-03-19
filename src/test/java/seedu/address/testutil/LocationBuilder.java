@@ -31,7 +31,7 @@ public class LocationBuilder {
     private Optional<Email> email;
     private Optional<Address> address;
     private Optional<PostalCode> postalCode;
-    private Optional<VisitDate> visitDate;
+    private Set<VisitDate> visitDates;
     private Set<Tag> tags;
 
     /**
@@ -43,7 +43,7 @@ public class LocationBuilder {
         email = Optional.of(new Email(DEFAULT_EMAIL));
         address = Optional.of(new Address(DEFAULT_ADDRESS));
         postalCode = Optional.of(new PostalCode(DEFAULT_POSTAL_CODE));
-        visitDate = Optional.of(new VisitDate(DEFAULT_VISIT_DATE));
+        visitDates = SampleDataUtil.getVisitDateSet(DEFAULT_VISIT_DATE);
         tags = new HashSet<>();
     }
 
@@ -56,7 +56,7 @@ public class LocationBuilder {
         email = locationToCopy.getEmail();
         address = locationToCopy.getAddress();
         postalCode = locationToCopy.getPostalCode();
-        visitDate = locationToCopy.getVisitDate();
+        visitDates = new HashSet<>(locationToCopy.getVisitDates());
         tags = new HashSet<>(locationToCopy.getTags());
     }
 
@@ -109,14 +109,14 @@ public class LocationBuilder {
     }
 
     /**
-     * Sets the {@code VisitDate} of the {@code Location} that we are building.
+     * Sets the {@code VisitDates} of the {@code Location} that we are building.
      */
-    public LocationBuilder withVisitDate(String visitDate) {
-        this.visitDate = Optional.of(new VisitDate(visitDate));
+    public LocationBuilder withVisitDates(String... visitDates) {
+        this.visitDates = SampleDataUtil.getVisitDateSet(visitDates);
         return this;
     }
 
     public Location build() {
-        return new Location(name, phone, email, address, postalCode, visitDate, tags);
+        return new Location(name, phone, email, address, postalCode, visitDates, tags);
     }
 }

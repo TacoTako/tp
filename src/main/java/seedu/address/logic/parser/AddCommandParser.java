@@ -25,7 +25,7 @@ import seedu.address.model.location.VisitDate;
 import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddCommand object.
  */
 public class AddCommandParser implements Parser<AddCommand> {
 
@@ -45,7 +45,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(
-                PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_POSTAL_CODE, PREFIX_DATE);
+                PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_POSTAL_CODE);
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
 
@@ -65,14 +65,10 @@ public class AddCommandParser implements Parser<AddCommand> {
                 ? Optional.of(ParserUtil.parsePostalCode(argMultimap.getValue(PREFIX_POSTAL_CODE).get()))
                 : Optional.empty();
 
-        Optional<VisitDate> visitDate = argMultimap.getValue(PREFIX_DATE).isPresent()
-                ? Optional.of(ParserUtil.parseVisitDate(argMultimap.getValue(PREFIX_DATE).get()))
-                : Optional.empty();
-
+        Set<VisitDate> visitDates = ParserUtil.parseVisitDates(argMultimap.getAllValues(PREFIX_DATE));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Location location = new Location(name, phone, email, address, postalCode, visitDate, tagList);
-
+        Location location = new Location(name, phone, email, address, postalCode, visitDates, tagList);
         return new AddCommand(location);
     }
 
@@ -83,5 +79,4 @@ public class AddCommandParser implements Parser<AddCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-
 }

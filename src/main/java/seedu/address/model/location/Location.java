@@ -25,22 +25,22 @@ public class Location {
 
     // Data fields
     private final Optional<Address> address;
-    private final Optional<VisitDate> visitDate;
+    private final Set<VisitDate> visitDates = new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Creates a Location, Optional fields may be empty.
+     * Creates a Location, optional fields may be empty.
      */
     public Location(Name name, Optional<Phone> phone, Optional<Email> email,
                     Optional<Address> address, Optional<PostalCode> postalCode,
-                    Optional<VisitDate> visitDate, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, postalCode, visitDate, tags);
+                    Set<VisitDate> visitDates, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, postalCode, visitDates, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.postalCode = postalCode;
-        this.visitDate = visitDate;
+        this.visitDates.addAll(visitDates);
         this.tags.addAll(tags);
     }
 
@@ -64,9 +64,14 @@ public class Location {
         return address;
     }
 
-    public Optional<VisitDate> getVisitDate() {
-        return visitDate;
+    /**
+     * Returns an immutable visit date set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<VisitDate> getVisitDates() {
+        return Collections.unmodifiableSet(visitDates);
     }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -98,7 +103,6 @@ public class Location {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof Location)) {
             return false;
         }
@@ -109,14 +113,13 @@ public class Location {
                 && email.equals(otherLocation.email)
                 && address.equals(otherLocation.address)
                 && postalCode.equals(otherLocation.postalCode)
-                && visitDate.equals(otherLocation.visitDate)
+                && visitDates.equals(otherLocation.visitDates)
                 && tags.equals(otherLocation.tags);
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, postalCode, visitDate, tags);
+        return Objects.hash(name, phone, email, address, postalCode, visitDates, tags);
     }
 
     @Override
@@ -127,7 +130,7 @@ public class Location {
                 .add("email", email.map(Email::toString).orElse("-"))
                 .add("address", address.map(Address::toString).orElse("-"))
                 .add("postalCode", postalCode.map(PostalCode::toString).orElse("-"))
-                .add("visitDate", visitDate.map(VisitDate::toString).orElse("-"))
+                .add("visitDates", visitDates)
                 .add("tags", tags)
                 .toString();
     }

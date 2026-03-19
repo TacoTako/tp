@@ -32,7 +32,7 @@ class JsonAdaptedLocation {
     private final String email;
     private final String address;
     private final String postalCode;
-    private final String visitDate;
+    private final List<String> visitDates = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -44,14 +44,18 @@ class JsonAdaptedLocation {
                                @JsonProperty("email") String email,
                                @JsonProperty("address") String address,
                                @JsonProperty("postalCode") String postalCode,
-                               @JsonProperty("visitDate") String visitDate,
+                               @JsonProperty("visitDates") List<String> visitDates,
                                @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.postalCode = postalCode;
-        this.visitDate = visitDate;
+
+        if (visitDates != null) {
+            this.visitDates.addAll(visitDates);
+        }
+
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -66,7 +70,11 @@ class JsonAdaptedLocation {
         email = source.getEmail().map(e -> e.value).orElse(null);
         address = source.getAddress().map(a -> a.value).orElse(null);
         postalCode = source.getPostalCode().map(p -> p.value).orElse(null);
-        visitDate = source.getVisitDate().map(Object::toString).orElse(null);
+
+        visitDates.addAll(source.getVisitDates().stream()
+                .map(VisitDate::toString)
+                .collect(Collectors.toList()));
+
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -123,16 +131,17 @@ class JsonAdaptedLocation {
             modelPostalCode = Optional.of(new PostalCode(postalCode));
         }
 
-        Optional<VisitDate> modelVisitDate = Optional.empty();
-        if (visitDate != null) {
+        final Set<VisitDate> modelVisitDates = new HashSet<>();
+        for (String visitDate : visitDates) {
             if (!VisitDate.isValidVisitDate(visitDate)) {
                 throw new IllegalValueException(VisitDate.MESSAGE_CONSTRAINTS);
             }
-            modelVisitDate = Optional.of(new VisitDate(visitDate));
+            modelVisitDates.add(new VisitDate(visitDate));
         }
 
         final Set<Tag> modelTags = new HashSet<>(locationTags);
+
         return new Location(modelName, modelPhone, modelEmail,
-                modelAddress, modelPostalCode, modelVisitDate, modelTags);
+                modelAddress, modelPostalCode, modelVisitDates, modelTags);
     }
 }

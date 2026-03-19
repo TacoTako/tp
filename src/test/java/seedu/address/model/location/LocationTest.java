@@ -81,7 +81,7 @@ public class LocationTest {
                 + ", email=" + ALICE.getEmail().map(Email::toString).orElse("-")
                 + ", address=" + ALICE.getAddress().map(Address::toString).orElse("-")
                 + ", postalCode=" + ALICE.getPostalCode().map(PostalCode::toString).orElse("-")
-                + ", visitDate=" + ALICE.getVisitDate().map(VisitDate::toString).orElse("-")
+                + ", visitDates=" + ALICE.getVisitDates()
                 + ", tags=" + ALICE.getTags() + "}";
         assertEquals(expected, ALICE.toString());
     }
