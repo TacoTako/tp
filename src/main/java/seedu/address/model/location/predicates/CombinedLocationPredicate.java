@@ -1,9 +1,10 @@
-package seedu.address.model.location;
+package seedu.address.model.location.predicates;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.location.Location;
 
 /**
  * Tests that a {@code Location}'s fields match all the predicates given.

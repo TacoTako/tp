@@ -14,7 +14,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.location.Location;
-import seedu.address.model.location.VisitDateMatchesKeywordsPredicate;
+import seedu.address.model.location.predicates.VisitDateMatchesKeywordsPredicate;
 
 /**
  * Represents the in-memory model of the address book data.

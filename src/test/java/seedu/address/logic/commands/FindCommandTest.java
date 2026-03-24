@@ -19,8 +19,8 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.location.CombinedLocationPredicate;
-import seedu.address.model.location.NameContainsKeywordsPredicate;
+import seedu.address.model.location.predicates.CombinedLocationPredicate;
+import seedu.address.model.location.predicates.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.

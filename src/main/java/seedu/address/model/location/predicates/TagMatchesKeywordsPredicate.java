@@ -1,25 +1,24 @@
-package seedu.address.model.location;
+package seedu.address.model.location.predicates;
 
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.location.Location;
 
 /**
- * Tests that a {@code Location}'s {@code Phone} matches the keyword given.
+ * Tests that a {@code Location}'s {@code Tag} matches the keyword given.
  */
-public class PhoneContainsKeywordsPredicate implements Predicate<Location> {
+public class TagMatchesKeywordsPredicate implements Predicate<Location> {
     private final String keyword;
 
-    public PhoneContainsKeywordsPredicate(String keyword) {
+    public TagMatchesKeywordsPredicate(String keyword) {
         this.keyword = keyword;
     }
 
     @Override
     public boolean test(Location location) {
-        return location.getPhone()
-                .map(phone -> StringUtil.containsSubstringIgnoreCase(phone.value, keyword))
-                .orElse(false);
+        return location.getTags().stream()
+                .anyMatch(tag -> tag.tagName.equalsIgnoreCase(keyword));
     }
 
     @Override
@@ -29,11 +28,11 @@ public class PhoneContainsKeywordsPredicate implements Predicate<Location> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PhoneContainsKeywordsPredicate)) {
+        if (!(other instanceof TagMatchesKeywordsPredicate)) {
             return false;
         }
 
-        PhoneContainsKeywordsPredicate otherPredicate = (PhoneContainsKeywordsPredicate) other;
+        TagMatchesKeywordsPredicate otherPredicate = (TagMatchesKeywordsPredicate) other;
         return keyword.equals(otherPredicate.keyword);
     }
 
