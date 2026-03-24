@@ -48,10 +48,11 @@ public class PlannerCard extends UiPart<Region> {
         super(FXML);
         this.location = location;
         name.setText(location.getName().fullName);
-        phone.setText("Phone: " + location.getPhone().map(p -> p.value).orElse("-"));
-        address.setText("Address: " + location.getAddress().map(a -> a.value).orElse("-"));
-        email.setText("Email: " + location.getEmail().map(e -> e.value).orElse("-"));
-        postalCode.setText("Postal Code: " + location.getPostalCode().map(p -> p.value).orElse("-"));
+        // set phone number to exactly 15 characters long
+        phone.setText(UiIconDatabase.PHONE_ICON + String.format("%-15.15s", location.getPhoneString()));
+        address.setText(UiIconDatabase.ADDRESS_ICON + location.getAddressString());
+        email.setText(UiIconDatabase.MAIL_ICON + location.getEmailString());
+        postalCode.setText("Postal Code: " + location.getPostalString());
         location.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

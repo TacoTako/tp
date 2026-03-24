@@ -53,16 +53,32 @@ public class Location {
         return phone;
     }
 
+    public String getPhoneString() {
+        return phone.map(Phone::toString).orElse("-");
+    }
+
     public Optional<Email> getEmail() {
         return email;
+    }
+
+    public String getEmailString() {
+        return email.map(Email::toString).orElse("-");
     }
 
     public Optional<PostalCode> getPostalCode() {
         return postalCode;
     }
 
+    public String getPostalString() {
+        return postalCode.map(PostalCode::toString).orElse("-");
+    }
+
     public Optional<Address> getAddress() {
         return address;
+    }
+
+    public String getAddressString() {
+        return address.map(Address::toString).orElse("-");
     }
 
     /**
@@ -134,10 +150,10 @@ public class Location {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("name", name)
-                .add("phone", phone.map(Phone::toString).orElse("-"))
-                .add("email", email.map(Email::toString).orElse("-"))
-                .add("address", address.map(Address::toString).orElse("-"))
-                .add("postalCode", postalCode.map(PostalCode::toString).orElse("-"))
+                .add("phone", getPhoneString())
+                .add("email", getEmailString())
+                .add("address", getAddressString())
+                .add("postalCode", getPostalString())
                 .add("visitDates", visitDates)
                 .add("tags", tags)
                 .toString();
