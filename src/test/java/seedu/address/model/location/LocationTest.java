@@ -11,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalLocations.ALICE;
 import static seedu.address.testutil.TypicalLocations.BOB;
+import static seedu.address.testutil.TypicalLocations.ZERO;
 
 import org.junit.jupiter.api.Test;
 
@@ -74,15 +75,32 @@ public class LocationTest {
     }
 
     @Test
+    public void testAttributeStrings() {
+
+        // test strings with empty optionals
+        assertEquals("-", ZERO.getAddressString());
+        assertEquals("-", ZERO.getEmailString());
+        assertEquals("-", ZERO.getPostalString());
+        assertEquals("-", ZERO.getPhoneString());
+
+        // test strings with non-empty optionals
+        assertEquals(ALICE.getAddress().map(Address::toString).orElse("fail"), ALICE.getAddressString());
+        assertEquals(ALICE.getEmail().map(Email::toString).orElse("fail"), ALICE.getEmailString());
+        assertEquals(ALICE.getPostalCode().map(PostalCode::toString).orElse("fail"), ALICE.getPostalString());
+        assertEquals(ALICE.getPhone().map(Phone::toString).orElse("fail"), ALICE.getPhoneString());
+    }
+
+    @Test
     public void toStringMethod() {
         String expected = Location.class.getCanonicalName()
                 + "{name=" + ALICE.getName()
-                + ", phone=" + ALICE.getPhone().map(Phone::toString).orElse("-")
-                + ", email=" + ALICE.getEmail().map(Email::toString).orElse("-")
-                + ", address=" + ALICE.getAddress().map(Address::toString).orElse("-")
-                + ", postalCode=" + ALICE.getPostalCode().map(PostalCode::toString).orElse("-")
+                + ", phone=" + ALICE.getPhoneString()
+                + ", email=" + ALICE.getEmailString()
+                + ", address=" + ALICE.getAddressString()
+                + ", postalCode=" + ALICE.getPostalString()
                 + ", visitDates=" + ALICE.getVisitDates()
                 + ", tags=" + ALICE.getTags() + "}";
         assertEquals(expected, ALICE.toString());
     }
+
 }

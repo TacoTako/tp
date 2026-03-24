@@ -69,6 +69,20 @@ public class LocationBuilder {
     }
 
     /**
+     * Sets the {@code Name} of the {@code Location} that we are building adn teh rest to empty optionals.
+     */
+    public LocationBuilder withOnlyName(String name) {
+        this.name = new Name(name);
+        phone = Optional.empty();
+        email = Optional.empty();
+        address = Optional.empty();
+        postalCode = Optional.empty();
+        visitDates = new HashSet<>();
+        tags = new HashSet<>();
+        return this;
+    }
+
+    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and sets it to the {@code Location} that we are building.
      */
     public LocationBuilder withTags(String... tags) {

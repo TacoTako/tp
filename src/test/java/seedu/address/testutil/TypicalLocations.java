@@ -29,6 +29,7 @@ public class TypicalLocations {
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
             .withVisitDates("2026-01-07", "2026-01-10")
+            .withPostalCode("123123")
             .withTags("friends").build();
     public static final Location BENSON = new LocationBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
@@ -56,6 +57,8 @@ public class TypicalLocations {
             .withEmail("stefan@example.com").withAddress("little india").build();
     public static final Location IDA = new LocationBuilder().withName("Ida Mueller").withPhone("8482131")
             .withEmail("hans@example.com").withAddress("chicago ave").build();
+    public static final Location ZERO = new LocationBuilder().withOnlyName("Zero Suhm").build();
+
 
     // Manually added - Location's details found in {@code CommandTestUtil}
     public static final Location AMY = new LocationBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
