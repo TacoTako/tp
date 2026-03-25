@@ -30,7 +30,7 @@
             <FlowPane fx:id="tags" />
             <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
             <Label fx:id="postalCode" styleClass="cell_small_label" text="$postalCode" />
-            <HBox spacing="10" HBox.hgrow="ALWAYS" minWidth="200">
+            <HBox spacing="10" minWidth="200">
                 <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" HBox.hgrow="ALWAYS"/>
                 <Label fx:id="email" styleClass="cell_small_label" text="\$email" HBox.hgrow="ALWAYS"/>
             </HBox>

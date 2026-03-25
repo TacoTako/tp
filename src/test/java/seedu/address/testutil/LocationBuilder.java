@@ -69,7 +69,7 @@ public class LocationBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Location} that we are building adn teh rest to empty optionals.
+     * Sets the {@code Name} of the {@code Location} that we are building and the rest to empty optionals.
      */
     public LocationBuilder withOnlyName(String name) {
         this.name = new Name(name);

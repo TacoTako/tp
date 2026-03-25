@@ -1,7 +1,7 @@
 package seedu.address.ui;
 
 /**
- * Reperesents a collection of all icons used in the AddressMe UI
+ * Represents a collection of all icons used in the AddressMe UI
  */
 public class UiIconDatabase {
     public static final String PHONE_ICON = "\uD83D\uDCDE";
@@ -10,7 +10,6 @@ public class UiIconDatabase {
     public static final String POSTAL_ICON = "\uD83D\uDCCD";
 
     private UiIconDatabase() {
-        // should not be called!
-        assert (false);
+        throw new AssertionError("This class should not be instantiated.");
     }
 }
