@@ -94,7 +94,7 @@
     -fx-text-background-color: #0f172a;
 }
 
-.split-pane:horizontal .split-pane-divider {
+.split-pane .split-pane-divider {
     -fx-background-color: #dbeafe;
     -fx-border-color: transparent transparent transparent #7dd3fc;
 }

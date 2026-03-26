@@ -20,7 +20,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.location.Location;
-import seedu.address.model.location.NameContainsKeywordsPredicate;
+import seedu.address.model.location.predicates.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditLocationDescriptorBuilder;
 
 /**
@@ -65,6 +65,7 @@ public class CommandTestUtil {
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "2026-02-32"; // correct format, out of bounds
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
+    public static final String INVALID_POSTAL_CODE_DESC = " " + PREFIX_POSTAL_CODE + "12@45";
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 

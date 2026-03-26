@@ -1,9 +1,10 @@
-package seedu.address.model.location;
+package seedu.address.model.location.predicates;
 
 import java.time.LocalDate;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.location.Location;
 
 /**
  * Tests that a {@code Location}'s {@code VisitDate} matches the date given.

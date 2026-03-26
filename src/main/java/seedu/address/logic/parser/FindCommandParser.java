@@ -17,14 +17,14 @@ import java.util.function.Predicate;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.location.AddressContainsKeywordsPredicate;
-import seedu.address.model.location.CombinedLocationPredicate;
-import seedu.address.model.location.EmailContainsKeywordsPredicate;
 import seedu.address.model.location.Location;
-import seedu.address.model.location.NameContainsKeywordsPredicate;
-import seedu.address.model.location.PhoneContainsKeywordsPredicate;
-import seedu.address.model.location.TagMatchesKeywordsPredicate;
-import seedu.address.model.location.VisitDateMatchesKeywordsPredicate;
+import seedu.address.model.location.predicates.AddressContainsKeywordsPredicate;
+import seedu.address.model.location.predicates.CombinedLocationPredicate;
+import seedu.address.model.location.predicates.EmailContainsKeywordsPredicate;
+import seedu.address.model.location.predicates.NameContainsKeywordsPredicate;
+import seedu.address.model.location.predicates.PhoneContainsKeywordsPredicate;
+import seedu.address.model.location.predicates.TagMatchesKeywordsPredicate;
+import seedu.address.model.location.predicates.VisitDateMatchesKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object

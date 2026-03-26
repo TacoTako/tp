@@ -35,7 +35,7 @@ public class LocationBuilder {
     private Set<Tag> tags;
 
     /**
-     * Creates a {@code LocationBuilder} with the default details.
+     * Creates a {@code LocationBuilder} with default details.
      */
     public LocationBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -69,6 +69,20 @@ public class LocationBuilder {
     }
 
     /**
+     * Sets the {@code Name} of the {@code Location} that we are building and the rest to empty optionals.
+     */
+    public LocationBuilder withOnlyName(String name) {
+        this.name = new Name(name);
+        phone = Optional.empty();
+        email = Optional.empty();
+        address = Optional.empty();
+        postalCode = Optional.empty();
+        visitDates = new HashSet<>();
+        tags = new HashSet<>();
+        return this;
+    }
+
+    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and sets it to the {@code Location} that we are building.
      */
     public LocationBuilder withTags(String... tags) {
@@ -85,10 +99,26 @@ public class LocationBuilder {
     }
 
     /**
+     * Removes the {@code Address} of the {@code Location} that we are building.
+     */
+    public LocationBuilder withoutAddress() {
+        this.address = Optional.empty();
+        return this;
+    }
+
+    /**
      * Sets the {@code Phone} of the {@code Location} that we are building.
      */
     public LocationBuilder withPhone(String phone) {
         this.phone = Optional.of(new Phone(phone));
+        return this;
+    }
+
+    /**
+     * Removes the {@code Phone} of the {@code Location} that we are building.
+     */
+    public LocationBuilder withoutPhone() {
+        this.phone = Optional.empty();
         return this;
     }
 
@@ -101,10 +131,26 @@ public class LocationBuilder {
     }
 
     /**
+     * Removes the {@code Email} of the {@code Location} that we are building.
+     */
+    public LocationBuilder withoutEmail() {
+        this.email = Optional.empty();
+        return this;
+    }
+
+    /**
      * Sets the {@code PostalCode} of the {@code Location} that we are building.
      */
     public LocationBuilder withPostalCode(String postalCode) {
         this.postalCode = Optional.of(new PostalCode(postalCode));
+        return this;
+    }
+
+    /**
+     * Removes the {@code PostalCode} of the {@code Location} that we are building.
+     */
+    public LocationBuilder withoutPostalCode() {
+        this.postalCode = Optional.empty();
         return this;
     }
 
@@ -118,10 +164,17 @@ public class LocationBuilder {
 
     /**
      * Sets a single {@code VisitDate} of the {@code Location} that we are building.
-     * Convenience wrapper for compatibility.
      */
     public LocationBuilder withVisitDate(String visitDate) {
         return withVisitDates(visitDate);
+    }
+
+    /**
+     * Removes all {@code VisitDate}s of the {@code Location} that we are building.
+     */
+    public LocationBuilder withoutVisitDates() {
+        this.visitDates = new HashSet<>();
+        return this;
     }
 
     public Location build() {
