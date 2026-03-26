@@ -78,7 +78,7 @@ public class CommandDatabaseTest {
         assertTrue(helpOverview.startsWith("Available commands:"));
         commandDatabase.getCommandWords().forEach(commandWord ->
                 assertTrue(helpOverview.contains(commandWord + ":")));
-        assertTrue(helpOverview.contains("help <command>"));
+        assertTrue(helpOverview.contains("help COMMAND_WORD"));
     }
 
     @Test

@@ -15,7 +15,7 @@ import java.util.Set;
 public class CommandDatabase {
 
     private static final String OVERVIEW_INTRO = "Available commands:";
-    private static final String OVERVIEW_FOOTER = "Use `help <command>` for detailed guidance.";
+    private static final String OVERVIEW_FOOTER = "Use `help COMMAND_WORD` for detailed guidance.";
 
     private final Map<String, CommandInfo> commandRegistry;
 
