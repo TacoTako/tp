@@ -33,7 +33,6 @@ public class TypicalLocations {
             .withPhone("94351253")
             .withPostalCode("640123")
             .withVisitDates("2026-01-07", "2026-01-10")
-            .withPostalCode("123123")
             .withTags("friends").build();
     public static final Location BENSON = new LocationBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
