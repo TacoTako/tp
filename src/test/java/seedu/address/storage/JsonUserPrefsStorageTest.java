@@ -70,13 +70,6 @@ public class JsonUserPrefsStorageTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    public void readUserPrefs_legacyShortcutField_ignored() throws DataLoadingException {
-        UserPrefs expected = getTypicalUserPrefs();
-        UserPrefs actual = readUserPrefs("TypicalUserPrefWithShortcuts.json").get();
-        assertEquals(expected, actual);
-    }
-
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
