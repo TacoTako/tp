@@ -98,22 +98,28 @@ public class MainApp extends Application {
         logger.info("Using shortcut file : " + storage.getShortcutFilePath());
 
         ReadOnlyShortcutMap initialShortcuts;
+        boolean shouldSaveShortcutMap = false;
         try {
             Optional<ShortcutMap> shortcutMapOptional = storage.readShortcutMap();
             if (!shortcutMapOptional.isPresent()) {
                 logger.info("Creating a new shortcut file " + storage.getShortcutFilePath());
+                initialShortcuts = new ShortcutMap();
+                shouldSaveShortcutMap = true;
+            } else {
+                initialShortcuts = shortcutMapOptional.get();
             }
-            initialShortcuts = shortcutMapOptional.orElseGet(ShortcutMap::new);
         } catch (DataLoadingException e) {
             logger.warning("Shortcut file at " + storage.getShortcutFilePath() + " could not be loaded."
                     + " Will be starting with an empty shortcut list.");
             initialShortcuts = new ShortcutMap();
         }
 
-        try {
-            storage.saveShortcutMap(initialShortcuts);
-        } catch (IOException e) {
-            logger.warning("Failed to save shortcut file : " + StringUtil.getDetails(e));
+        if (shouldSaveShortcutMap) {
+            try {
+                storage.saveShortcutMap(initialShortcuts);
+            } catch (IOException e) {
+                logger.warning("Failed to save shortcut file : " + StringUtil.getDetails(e));
+            }
         }
 
         return new ModelManager(initialData, userPrefs, initialShortcuts);
