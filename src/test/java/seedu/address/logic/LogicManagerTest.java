@@ -29,6 +29,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyShortcutMap;
 import seedu.address.model.ShortcutMap;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.location.Location;
@@ -108,6 +109,16 @@ public class LogicManagerTest {
     public void execute_storageThrowsAdException_throwsCommandException() {
         assertCommandFailureForExceptionFromStorage(DUMMY_AD_EXCEPTION,
                 String.format(LogicManager.FILE_OPS_PERMISSION_ERROR_FORMAT, DUMMY_AD_EXCEPTION.getMessage()));
+    }
+
+    @Test
+    public void execute_shortcutStorageThrowsIoException_commandSucceeds() throws Exception {
+        assertCommandSuccessForExceptionFromShortcutStorage(DUMMY_IO_EXCEPTION);
+    }
+
+    @Test
+    public void execute_shortcutStorageThrowsAdException_commandSucceeds() throws Exception {
+        assertCommandSuccessForExceptionFromShortcutStorage(DUMMY_AD_EXCEPTION);
     }
 
     @Test
@@ -213,6 +224,39 @@ public class LogicManagerTest {
         expectedModel.addLocation(expectedLocation);
 
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+    }
+
+    /**
+     * Tests the Logic component's handling of an {@code IOException} thrown while saving shortcuts.
+     * Shortcut persistence is best-effort, so command execution should still succeed.
+     *
+     * @param e the exception to be thrown by the shortcut storage component
+     */
+    private void assertCommandSuccessForExceptionFromShortcutStorage(IOException e) throws Exception {
+        JsonAddressBookStorage addressBookStorage =
+                new JsonAddressBookStorage(temporaryFolder.resolve("ExceptionAddressBook.json"));
+        JsonUserPrefsStorage userPrefsStorage =
+                new JsonUserPrefsStorage(temporaryFolder.resolve("ExceptionUserPrefs.json"));
+        JsonShortcutStorage shortcutStorage =
+                new JsonShortcutStorage(temporaryFolder.resolve("ExceptionShortcut.json")) {
+                    @Override
+                    public void saveShortcutMap(ReadOnlyShortcutMap shortcutMap, Path filePath) throws IOException {
+                        throw e;
+                    }
+                };
+
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, shortcutStorage);
+        logic = new LogicManager(model, storage);
+
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + POSTAL_CODE_DESC_AMY + DATE_DESC_AMY;
+
+        Location expectedLocation = new LocationBuilder(AMY).withTags().build();
+        ModelManager expectedModel = new ModelManager();
+        expectedModel.addLocation(expectedLocation);
+
+        assertCommandSuccess(addCommand, String.format(AddCommand.MESSAGE_SUCCESS,
+                Messages.format(expectedLocation)), expectedModel);
     }
 }
 

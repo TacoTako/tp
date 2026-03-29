@@ -80,6 +80,11 @@ public class StorageManagerTest {
     }
 
     @Test
+    public void getShortcutFilePath() {
+        assertEquals(getTempFilePath("shortcut"), storageManager.getShortcutFilePath());
+    }
+
+    @Test
     public void addressBookReadSave_missingOptionalFields_success() throws Exception {
         AddressBook original = new AddressBook();
 
