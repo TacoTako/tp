@@ -17,14 +17,14 @@ public class NoteCommandParserTest {
     private final NoteCommandParser parser = new NoteCommandParser();
 
     @Test
-    public void parse_allFieldsPresent_success() throws Exception {
+    public void parseAllFieldsPresentSuccess() throws Exception {
         NoteCommand expected = new NoteCommand(new Name("Great place"), Optional.of(new VisitDate("2026-03-24")));
 
         assertParseSuccess(parser, " n/Great place d/2026-03-24", expected);
     }
 
     @Test
-    public void parse_optionalDate_present_success() throws Exception {
+    public void parseOptionalDatePresentSuccess() throws Exception {
         NoteCommand expected = new NoteCommand(new Name("Great place"), Optional.empty());
 
         assertParseSuccess(parser, " n/Great place", expected);

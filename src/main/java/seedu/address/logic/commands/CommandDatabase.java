@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.logic.commands.NoteCommand;
-
 /**
  * Represents the collection of command keywords available to the user
  * and stores help metadata for built-in commands.
