@@ -59,8 +59,8 @@ public class DateParser {
      * @return a LocalDate representation of the input
      * @throws IllegalValueException if the string cannot fit into any DateTimeFormat
      */
-    public static LocalDate parseDate(String input) throws IllegalValueException {
-        input = input.trim();
+    public static LocalDate parse(String input) throws IllegalValueException {
+        input = input.trim().toLowerCase();
 
         if (input.isEmpty()) {
             throw new IllegalValueException(MESSAGE_WRONG_DATE_FORMAT);
@@ -73,7 +73,6 @@ public class DateParser {
             //ignore since exception is thrown below
         }
 
-        // try to match date formatter with no year
         LocalDate today = LocalDate.now();
         try {
             MonthDay parsed = parseMonthDay(input);
