@@ -52,7 +52,7 @@ public class PlanCommand extends Command {
      * @param isDisplaying true if a date is loaded in
      */
     private String generateSuccessMessage(boolean isDisplaying) {
-        return isDisplaying ? String.format(MESSAGE_DISPLAY_SUCCESS, date.toString())
+        return isDisplaying ? String.format(MESSAGE_DISPLAY_SUCCESS, DateParser.dateToPrettyString(date))
                 : MESSAGE_CLEAR_SUCCESS;
     }
 

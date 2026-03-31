@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.MonthDay;
@@ -11,10 +13,6 @@ import java.util.List;
 import java.util.Locale;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.location.dates.OneTimeDate;
-import seedu.address.model.location.dates.VisitDate;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a static utility class that can convert between Strings and LocalDate, MonthDay and DayOfWeek

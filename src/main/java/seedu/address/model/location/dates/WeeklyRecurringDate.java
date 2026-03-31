@@ -1,13 +1,12 @@
 package seedu.address.model.location.dates;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.parser.DateParser;
+import static java.util.Objects.requireNonNull;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import seedu.address.logic.parser.DateParser;
+
 
 /**
  * Represents a {@code VisitDate} that occurs once a week on a specific day
@@ -26,20 +25,6 @@ public class WeeklyRecurringDate extends VisitDate {
         requireNonNull(dow);
         this.day = dow;
     }
-
-//    /**
-//     * Constructs a {@code WeeklyRecurringDate}. TODO
-//     * @param dateString A valid visit date string representing a Day of the week
-//     */
-//    public WeeklyRecurringDate(String dateString) {
-//        requireNonNull(dateString);
-//        //checkArgument(isValidVisitDate(dateString), MESSAGE_CONSTRAINTS);
-//        try {
-//            this.day = DateParser.parseDate(dateString).getDayOfWeek();
-//        } catch (IllegalValueException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
     @Override
     public boolean isOn(LocalDate date) {

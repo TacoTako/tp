@@ -13,7 +13,6 @@ import seedu.address.model.location.Location;
 import seedu.address.model.location.Name;
 import seedu.address.model.location.Phone;
 import seedu.address.model.location.PostalCode;
-import seedu.address.model.location.dates.OneTimeDate;
 import seedu.address.model.location.dates.VisitDate;
 import seedu.address.model.tag.Tag;
 

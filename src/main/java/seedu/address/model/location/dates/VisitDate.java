@@ -1,11 +1,8 @@
 package seedu.address.model.location.dates;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.Locale;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.DateParser;

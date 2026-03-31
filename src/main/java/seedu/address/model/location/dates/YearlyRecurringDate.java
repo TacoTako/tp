@@ -1,15 +1,12 @@
 package seedu.address.model.location.dates;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.parser.DateParser;
+import static java.util.Objects.requireNonNull;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import seedu.address.logic.parser.DateParser;
 
 /**
  * Represents a {@code VisitDate} that occurs once a year on a specific day of a month
@@ -17,8 +14,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class YearlyRecurringDate extends VisitDate {
     public static final String MESSAGE_CONSTRAINTS = DateParser.MESSAGE_WRONG_DATE_FORMAT;
 
-    private final DateTimeFormatter PRETTY_FORMAT = DateTimeFormatter.ofPattern("dd MMM");
-    private final DateTimeFormatter DATA_FORMAT = DateTimeFormatter.ofPattern("dd/MM");
+    private static final DateTimeFormatter PRETTY_FORMAT = DateTimeFormatter.ofPattern("dd MMM");
+    private static final DateTimeFormatter DATA_FORMAT = DateTimeFormatter.ofPattern("dd/MM");
     private final MonthDay date;
 
     /**
@@ -29,20 +26,6 @@ public class YearlyRecurringDate extends VisitDate {
         requireNonNull(md);
         this.date = md;
     }
-
-//    /**
-//     * Constructs a {@code WeeklyRecurringDate}. TODO
-//     * @param dateString A valid visit date string representing a Day of the week
-//     */
-//    public YearlyRecurringDate(String dateString) {
-//        requireNonNull(dateString);
-//        //checkArgument(isValidVisitDate(dateString), MESSAGE_CONSTRAINTS);
-//        try {
-//            this.date = MonthDay.from(DateParser.parseDate(dateString));
-//        } catch (IllegalValueException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
     @Override
     public boolean isOn(LocalDate date) {

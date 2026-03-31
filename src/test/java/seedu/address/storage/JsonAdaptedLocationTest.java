@@ -42,7 +42,7 @@ public class JsonAdaptedLocationTest {
             .collect(Collectors.toList());
 
     private static final List<String> VALID_VISIT_DATES = BOB.getVisitDates().stream()
-            .map(VisitDate::toString)
+            .map(VisitDate::toDataString)
             .collect(Collectors.toList());
 
     @Test

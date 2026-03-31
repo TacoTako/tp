@@ -1,14 +1,12 @@
 package seedu.address.model.location.dates;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.parser.DateParser;
+import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.DateParser;
 
 /**
  * Represents a {@code VisitDate} that occurs only once
