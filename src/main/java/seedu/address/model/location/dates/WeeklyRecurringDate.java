@@ -28,6 +28,7 @@ public class WeeklyRecurringDate extends VisitDate {
 
     @Override
     public boolean isOn(LocalDate date) {
+        requireNonNull(date);
         return date.getDayOfWeek().equals(day);
     }
 

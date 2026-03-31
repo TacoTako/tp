@@ -1,5 +1,7 @@
 package seedu.address.model.location.dates;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 
 /**
@@ -20,6 +22,7 @@ public class EveryDayDate extends VisitDate {
      */
     @Override
     public boolean isOn(LocalDate date) {
+        requireNonNull(date);
         return true;
     }
 
@@ -35,6 +38,6 @@ public class EveryDayDate extends VisitDate {
 
     @Override
     public boolean equals(Object other) {
-        return other instanceof OneTimeDate;
+        return this == other;
     }
 }

@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.DateParser;
 
 /**
@@ -27,24 +26,9 @@ public class OneTimeDate extends VisitDate {
         this.date = visitDate;
     }
 
-    /**
-     * Constructs a {@code VisitDate}.
-     *
-     * @param dateString A valid visit date string in YYYY-MM-DD format.
-     */
-    public OneTimeDate(String dateString) {
-        requireNonNull(dateString);
-        //checkArgument(isValidVisitDate(dateString), MESSAGE_CONSTRAINTS);
-        try {
-            this.date = DateParser.parse(dateString);
-        } catch (IllegalValueException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
     @Override
     public boolean isOn(LocalDate date) {
+        requireNonNull(date);
         return this.date.equals(date);
     }
 

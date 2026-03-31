@@ -119,12 +119,12 @@ public class DateParser {
      */
     public static DayOfWeek parseDayOfWeek(String input) throws IllegalValueException {
         input = input.trim();
-        // capitalize just the first letter (Assuming it is day of the week)
-        input = formatDayOfWeek(input);
 
         if (input.isEmpty()) {
             throw new IllegalValueException(MESSAGE_WRONG_DAY_OF_WEEK_FORMAT);
         }
+        // capitalize just the first letter (Assuming it is day of the week)
+        input = formatDayOfWeek(input);
 
         for (DateTimeFormatter formatter : DAY_OF_WEEK_FORMATTER) {
             try {
