@@ -74,6 +74,11 @@ public class DateParser {
         }
 
         LocalDate today = LocalDate.now();
+
+        if (input.equals("today")) {
+            return today;
+        }
+
         try {
             MonthDay parsed = parseMonthDay(input);
             return monthDayToDate(today, parsed);
@@ -152,7 +157,7 @@ public class DateParser {
      * @param dateParsed MonthDay to be converted
      * @return The date with year adjusted
      */
-    private static LocalDate monthDayToDate(LocalDate today, MonthDay dateParsed) {
+    public static LocalDate monthDayToDate(LocalDate today, MonthDay dateParsed) {
         LocalDate dateThisYear = dateParsed.atYear(today.getYear());
 
         // the date has passed, so should refer to next year

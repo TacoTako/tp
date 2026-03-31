@@ -36,7 +36,7 @@ public class OneTimeDate extends VisitDate {
         requireNonNull(dateString);
         //checkArgument(isValidVisitDate(dateString), MESSAGE_CONSTRAINTS);
         try {
-            this.date = DateParser.parseDate(dateString);
+            this.date = DateParser.parse(dateString);
         } catch (IllegalValueException e) {
             throw new RuntimeException(e);
         }
@@ -55,7 +55,7 @@ public class OneTimeDate extends VisitDate {
 
     @Override
     public String toString() {
-        return date.format(DateTimeFormatter.ofPattern("EEEE, d MMM yyyy"));
+        return date.format(DateTimeFormatter.ofPattern("d MMM yy"));
     }
 
     @Override

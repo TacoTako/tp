@@ -24,7 +24,7 @@ public class PlanCommandParser implements Parser<PlanCommand> {
         }
 
         try {
-            LocalDate date = DateParser.parseDate(trimmedArgs);
+            LocalDate date = DateParser.parse(trimmedArgs);
             return new PlanCommand(date);
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanCommand.MESSAGE_USAGE), ive);

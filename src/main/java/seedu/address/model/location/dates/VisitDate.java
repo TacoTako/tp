@@ -18,7 +18,7 @@ public abstract class VisitDate {
             + " formats:\ne-d/M, e-d/M, every d/M to indicate it happening every year.\nevery Tuesday, e-fri as "
             + "examples of dates occurring every Tuesday or Friday.";
     public static final String MESSAGE_CONSTRAINTS = DateParser.MESSAGE_WRONG_DATE_FORMAT
-            + "\nFor reccurring dates, use the format e-[DATE], or every [DATE],\n"
+            + "\nFor recurring dates, use the format e-[DATE], or every [DATE],\n"
             + "where [DATE] is in day and month format or a day of the week";
 
     private static final String RECURRING_DATE_REGEX = "^(every\\s+|e-).+";
@@ -58,7 +58,7 @@ public abstract class VisitDate {
         }
 
         try {
-            return new OneTimeDate(DateParser.parseDate(dateString));
+            return new OneTimeDate(DateParser.parse(dateString));
         } catch (IllegalValueException e) {
             throw new IllegalValueException(MESSAGE_CONSTRAINTS);
         }
@@ -81,7 +81,7 @@ public abstract class VisitDate {
     public static boolean isValidVisitDate(String test) {
         requireNonNull(test);
         try {
-            DateParser.parseDate(test);
+            DateParser.parse(test);
             return true;
         } catch (IllegalValueException e) {
             return false;

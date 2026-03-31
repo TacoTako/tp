@@ -93,7 +93,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         // 7. Parse Dates (AND logic)
         for (String dateKeyword : argMultimap.getAllValues(PREFIX_DATE)) {
             try {
-                predicates.add(new VisitDateMatchesKeywordsPredicate(DateParser.parseDate(dateKeyword)));
+                predicates.add(new VisitDateMatchesKeywordsPredicate(DateParser.parse(dateKeyword)));
             } catch (IllegalValueException e) {
                 throw new ParseException(e.getMessage() + System.lineSeparator() + FindCommand.MESSAGE_USAGE);
             }
