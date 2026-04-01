@@ -125,7 +125,7 @@ Format: `list`
 
 Creates, removes, and lists shortcuts for existing command words.
 
-Format: 
+Format:
 ```
 shortcut set ALIAS COMMAND_WORD
 shortcut remove ALIAS
