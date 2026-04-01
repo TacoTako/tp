@@ -24,16 +24,9 @@ public class NoteCommandParserTest {
         assertParseSuccess(parser, " n/Great place d/2026-03-24", expected);
     }
 
-    //    @Test
-    //    public void parseOptionalDatePresentSuccess() throws Exception {
-    //        NoteCommand expected = new NoteCommand(new Name("Great place"), Optional.empty());
-    //
-    //        assertParseSuccess(parser, " n/Great place", expected);
-    //    }
-
     @Test
     public void parse_missingNote_throwsParseException() {
-        assertParseFailure(parser, "d/2026-03-24", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        assertParseFailure(parser, " d/2026-03-24", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 NoteCommand.MESSAGE_USAGE));
     }
 
