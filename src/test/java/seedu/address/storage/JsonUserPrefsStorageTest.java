@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.Theme;
 import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.model.UserPrefs;
 
@@ -53,6 +54,14 @@ public class JsonUserPrefsStorageTest {
     public void readUserPrefs_fileInOrder_successfullyRead() throws DataLoadingException {
         UserPrefs expected = getTypicalUserPrefs();
         UserPrefs actual = readUserPrefs("TypicalUserPref.json").get();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void readUserPrefs_withDarkTheme_successfullyRead() throws DataLoadingException {
+        UserPrefs expected = getTypicalUserPrefs();
+        expected.setTheme(Theme.DARK);
+        UserPrefs actual = readUserPrefs("TypicalUserPrefWithDarkTheme.json").get();
         assertEquals(expected, actual);
     }
 
@@ -105,6 +114,7 @@ public class JsonUserPrefsStorageTest {
 
         UserPrefs original = new UserPrefs();
         original.setGuiSettings(new GuiSettings(1200, 200, 0, 2));
+        original.setTheme(Theme.DARK);
 
         Path pefsFilePath = testFolder.resolve("TempPrefs.json");
         JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(pefsFilePath);
