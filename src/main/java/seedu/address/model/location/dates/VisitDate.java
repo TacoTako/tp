@@ -42,7 +42,6 @@ public abstract class VisitDate {
         if (dateString.matches(RECURRING_DATE_REGEX)) {
             String recurring = dateString.replaceFirst(RECURRING_DATE_PREFIX_REGEX, "");
 
-            System.out.println(recurring);
             // try to match with either yearly or weekly date
             try {
                 return new YearlyRecurringDate(DateParser.parseMonthDay(recurring));
