@@ -16,6 +16,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.Theme;
 import seedu.address.model.location.predicates.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 
@@ -108,6 +109,78 @@ public class ModelManagerTest {
     @Test
     public void getPlannerLocationList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getPlannerLocationList().remove(0));
+    }
+
+    @Test
+    public void undoRedoState_singleLevelHistory_success() {
+        modelManager.saveState();
+        modelManager.addLocation(ALICE);
+        modelManager.commitState();
+
+        assertTrue(modelManager.canUndoState());
+        assertFalse(modelManager.canRedoState());
+
+        modelManager.undoState();
+        assertFalse(modelManager.hasLocation(ALICE));
+        assertFalse(modelManager.canUndoState());
+        assertTrue(modelManager.canRedoState());
+
+        modelManager.redoState();
+        assertTrue(modelManager.hasLocation(ALICE));
+        assertTrue(modelManager.canUndoState());
+        assertFalse(modelManager.canRedoState());
+    }
+
+    @Test
+    public void commitState_noChange_preservesHistory() {
+        modelManager.saveState();
+        modelManager.commitState();
+        assertFalse(modelManager.canUndoState());
+
+        modelManager.saveState();
+        modelManager.addLocation(ALICE);
+        modelManager.commitState();
+        modelManager.undoState();
+
+        assertTrue(modelManager.canRedoState());
+
+        modelManager.saveState();
+        modelManager.commitState();
+
+        assertTrue(modelManager.canRedoState());
+    }
+
+    @Test
+    public void discardState_failedCommand_preservesHistory() {
+        modelManager.saveState();
+        modelManager.addLocation(ALICE);
+        modelManager.commitState();
+
+        modelManager.saveState();
+        modelManager.discardState();
+
+        assertTrue(modelManager.canUndoState());
+        modelManager.undoState();
+        assertFalse(modelManager.hasLocation(ALICE));
+    }
+
+    @Test
+    public void undoRedoState_themeAndShortcut_success() {
+        modelManager.saveState();
+        modelManager.setTheme(Theme.DARK);
+        modelManager.setShortcut("a", "add");
+        modelManager.commitState();
+
+        assertEquals(Theme.DARK, modelManager.getTheme());
+        assertTrue(modelManager.hasShortcut("a"));
+
+        modelManager.undoState();
+        assertEquals(Theme.LIGHT, modelManager.getTheme());
+        assertFalse(modelManager.hasShortcut("a"));
+
+        modelManager.redoState();
+        assertEquals(Theme.DARK, modelManager.getTheme());
+        assertTrue(modelManager.hasShortcut("a"));
     }
 
     @Test

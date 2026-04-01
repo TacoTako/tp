@@ -65,4 +65,14 @@ public class ShortcutCommandTest {
         ShortcutCommand command = new ShortcutCommand(ShortcutCommand.Action.SET, "a", "unknown_command");
         assertCommandFailure(command, model, ShortcutManager.MESSAGE_INVALID_COMMAND_WORD);
     }
+
+    @Test
+    public void isStateMutating_variesByAction() {
+        org.junit.jupiter.api.Assertions.assertTrue(
+                new ShortcutCommand(ShortcutCommand.Action.SET, "a", "add").isStateMutating());
+        org.junit.jupiter.api.Assertions.assertTrue(
+                new ShortcutCommand(ShortcutCommand.Action.REMOVE, "a", null).isStateMutating());
+        org.junit.jupiter.api.Assertions.assertFalse(
+                new ShortcutCommand(ShortcutCommand.Action.LIST, null, null).isStateMutating());
+    }
 }
