@@ -19,12 +19,11 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Theme;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
-// import seedu.address.logic.commands.EditCommand;
-// import seedu.address.logic.commands.EditCommand.EditLocationDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.NoteCommand;
 import seedu.address.logic.commands.PlanCommand;
 import seedu.address.logic.commands.ShortcutCommand;
 import seedu.address.logic.commands.ThemeCommand;
@@ -122,6 +121,13 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_helpLink_success() throws Exception {
         assertEquals(new HelpCommand(true), parser.parseCommand("help " + HelpCommand.LINK_FLAG));
+    }
+
+    @Test
+    public void parseCommand_note_success() throws Exception {
+        assertEquals(new NoteCommand(new seedu.address.model.location.NoteContent("Great place"),
+                new seedu.address.model.location.VisitDate("2026-03-24")),
+                parser.parseCommand("note n/Great place d/2026-03-24"));
     }
 
     @Test

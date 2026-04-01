@@ -478,25 +478,25 @@ Use case ends.
 1. User requests to create a shortcut for an existing command.
 2. AddressMe validates the shortcut and the referenced command.
 3. AddressMe saves the shortcut.
-4. AddressMe confirms that the shortcut has been created.  
+4. AddressMe confirms that the shortcut has been created.
    Use case ends.
 
 **Extensions**
 
-**2a. The alias violates validation constraints.**  
-(e.g. contains illegal characters, matches a reserved keyword, or conflicts with an existing alias)  
-2a1. AddressMe rejects the request and shows an appropriate error message.  
+**2a. The alias violates validation constraints.**
+(e.g. contains illegal characters, matches a reserved keyword, or conflicts with an existing alias)
+2a1. AddressMe rejects the request and shows an appropriate error message.
 Use case ends.
 
 
-**2b. The referenced command word is invalid.**  
-(e.g. command does not exist or is not eligible for aliasing)  
-2b1. AddressMe shows an error message indicating that the command is invalid.  
+**2b. The referenced command word is invalid.**
+(e.g. command does not exist or is not eligible for aliasing)
+2b1. AddressMe shows an error message indicating that the command is invalid.
 Use case ends.
 
 
-**3a. Saving the shortcut fails due to a storage I/O error.**  
-3a1. AddressMe shows an error message and does not persist the shortcut.  
+**3a. Saving the shortcut fails due to a storage I/O error.**
+3a1. AddressMe shows an error message and does not persist the shortcut.
 Use case ends.
 
 ---

@@ -106,6 +106,15 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/2026-01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal d/2026-03-12 d/2026-04-12`
 
+### Recording a note : `note`
+
+Records a date-bound note that will be persisted in future milestones. Currently it validates syntax via CLI and confirms receipt.
+
+Format: `note n/NOTE d/DATE` (DATE required)
+
+Examples:
+* `note n/Great place d/2026-03-24`
+
 ### Listing all locations : `list`
 
 Shows a list of all locations in the address book.
@@ -116,7 +125,7 @@ Format: `list`
 
 Creates, removes, and lists shortcuts for existing command words.
 
-Format: 
+Format:
 ```
 shortcut set ALIAS COMMAND_WORD
 shortcut remove ALIAS
@@ -296,3 +305,4 @@ E.g. `A` autocompletes into `add`, while `e` autocompletes to `e`, since both `e
 | **Help**     | `help` / `help COMMAND_WORD` / `help -ug`<br> e.g., `help`, `help add`, `help -ug`                                                                                                           |
 | **Shortcut** | `shortcut set ALIAS COMMAND_WORD` / `shortcut remove ALIAS` / `shortcut list`<br> e.g., `shortcut set a add`, `shortcut remove a`, `shortcut list`                                           |
 | **Theme**    | `theme light` / `theme dark`                                                                                                                                                                 |
+| **Note**     | `note n/NOTE d/DATE` <br> e.g., `note n/Great place d/2026-03-24`
