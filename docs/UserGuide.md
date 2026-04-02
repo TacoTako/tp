@@ -17,14 +17,14 @@ It offers a **minimalist, easy-to-learn experience** designed for digital nomads
 
 ---
 
-## Do you
+<h2>Do you:</h2>
 
 - **Move regularly** and need to track multiple locations and visit plans?
 - Need your data even with **unreliable internet**?
 - Prefer **typing** over clicking through menus?
 - Feel frustrated by overly complicated itinerary planners?
 
-### **If so, AddressMe is built for you!**
+<h3>**If so, AddressMe is built for you!**</h3>
 
 ---
 
@@ -124,34 +124,34 @@ Alternatively, typing `today` also works!
 - **Recurring Dates:** You can mark locations with recurring dates by starting it with `e-` or `every `!
 <br>`DAY_MONTH` and `DAY_OF_WEEK` accepts the formats specified above.
 
-| **Recurring type** | **Format**                                   | **Example**                                                                     |
-|--------------------|----------------------------------------------|---------------------------------------------------------------------------------|
-| **Everyday**       | `everyday` or `every day` (case-insensitive) |                                                                                 |
-| **Weekly**         | `e-DAY_OF_WEEK`, ` every DAY_OF_WEEK`        | `edit 1 d/e-Sun` edits a location to happen every Sunday                        |
-| **Yearly**         | `e-DAY_MONTH`, ` every DAY_MONTH`            | `add n/Mom's House d/every 25/12` adds an entry that happens every 25 December. |
+| **Recurring type** | **Format**                                                                                                                      |
+|--------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| **Everyday**       | `everyday` or `every day` (case-insensitive)                                                                                    |
+| **Weekly**         | `e-DAY_OF_WEEK`, `every DAY_OF_WEEK` <br>Example: `edit 1 d/e-Sun` edits a location to happen every Sunday                      |
+| **Yearly**         | `e-DAY_MONTH`, `every DAY_MONTH`   <br>Example: `add n/Mom's House d/every 25/12` adds an entry that happens every 25 December. |
 
 ---
 ### Start Your First Commands
 
 Now that you're familiar with commands, try typing these commands into AddressMe to get a feel for the application.
 
-- **`list`**
+- `list`
 
 Shows all saved locations.
 
-- **`find Cafe`**
+- `find Cafe`
 
 Searches for any location with 'Cafe' in its name.
 
-- **`add n/Nomad Hub e/hello@nomadhub.com a/12 Tanjong Pagar t/coworking`**
+- `add n/Nomad Hub e/hello@nomadhub.com a/12 Tanjong Pagar t/coworking`
 
 Adds a new coworking space.
 
-- **`plan 2026-04-01`**
+- `plan 2026-04-01`
 
 Shows your itinerary plan for 1 April 2026.
 
-- **`exit`**
+- `exit`
 
 Closes the application.
 
@@ -228,7 +228,7 @@ Displays every saved location in the **Location List**. Use this to reset the vi
 
 Format: `list`
 
-### Locating locations by name or other attributes: `find`
+### `find` - Filtering locations by attributes
 
 Your most powerful command. Searches across names, addresses, tags, phone numbers, emails, and visit dates. Multiple conditions are combined with AND logic - the more specific you are, the more precise your results.
 
@@ -416,9 +416,6 @@ Clears all entries from the address book. Use with caution.
 Format: `clear`
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-
-### Exiting the program : `exit`
-
 <br>If you need to start fresh, consider backing up your data file first (see [Data Management](#6-data-management)).
 <br>Always remember you can [undo](#undo---reverting-the-last-change)!
 </div>
@@ -507,7 +504,6 @@ Install AddressMe on the new device, run it once to generate the data folder, th
 --------------------------------------------------------------------------------------------------------------------
 
 ## 7. FAQ & Known Issues
-
 ### Frequently Asked Questions
 
 **Q:** How do I move my data to a new laptop?
