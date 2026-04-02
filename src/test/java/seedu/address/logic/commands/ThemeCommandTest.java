@@ -22,6 +22,11 @@ public class ThemeCommandTest {
     }
 
     @Test
+    public void isStateMutating_returnsTrue() {
+        assertEquals(true, new ThemeCommand(Theme.DARK).isStateMutating());
+    }
+
+    @Test
     public void equals() {
         ThemeCommand darkCommand = new ThemeCommand(Theme.DARK);
         ThemeCommand anotherDarkCommand = new ThemeCommand(Theme.DARK);

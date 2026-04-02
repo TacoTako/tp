@@ -300,7 +300,7 @@ Format: `delete INDEX [MORE_INDEXES]...`
 
 <div markdown="block" class="alert alert-primary">:bulb: **Tip:**
 
-Deleted anything by accident? Try the `undo` command listed [here](#undo---reverting-commands)!
+Deleted anything by accident? Try the `undo` command listed [here](#undo---reverting-the-last-change)!
 
 </div>
 
@@ -308,8 +308,6 @@ Examples:
 * `list` followed by `delete 2`<br>Deletes the 2nd location in the current list.
 * `find Sentosa` followed by `delete 1`<br>Finds locations matching 'Sentosa', then deletes the 1st result from filtered list.
 * `list` followed by `delete 1 3 5`<br>Deletes the 1st, 3rd, and 5th locations in a single command.
-
-### `undo` - Reverting commands
 
 ### `plan` - Using the itinerary planner
 
@@ -349,6 +347,37 @@ Format: note d-/DATE
 Example:
 * `note d-/2026-03-24`
 
+### `undo` - Reverting the last change
+
+Reverts the most recent successful undoable change.
+
+Format: `undo`
+
+* `undo` currently supports only one level of history.
+* Successful `add`, `edit`, `delete`, `clear`, `shortcut set`, `shortcut remove`, and `theme` commands are undoable.
+* Commands that do not change undoable state, such as `list`, `find`, `plan`, `help`, `shortcut list`, and `note`, do not affect undo history.
+* `note` is not undoable yet because it currently validates input and shows a confirmation message without persisting data.
+* If there is nothing to undo, AddressMe shows an error message.
+
+Examples:
+* `delete 3` followed by `undo` restores the deleted location.
+* `theme dark` followed by `undo` restores the previous theme.
+* `shortcut set a add` followed by `undo` removes the shortcut again.
+
+### `redo` - Redoing the last undo
+
+Reapplies the most recent undone change.
+
+Format: `redo`
+
+* `redo` is available after a successful `undo` until another successful undoable command happens.
+* A new successful `add`, `edit`, `delete`, `clear`, `shortcut set`, `shortcut remove`, or `theme` command clears the redo state.
+* If there is nothing to redo, AddressMe shows an error message.
+
+Examples:
+* `add n/McDonalds` followed by `undo` and `redo` adds the same location back.
+* `theme dark` followed by `undo` and `redo` switches the theme back to dark.
+
 ### `shortcut` - Managing command shortcuts
 
 Creates, removes, and lists custom aliases for built-in commands. Shave seconds off your most frequent actions.
@@ -386,6 +415,8 @@ Clears all entries from the address book. Use with caution.
 Format: `clear`
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+
+### Exiting the program : `exit`
 
 <br>If you need to start fresh, consider backing up your data file first (see [Data Management](#6-data-management)).
 <br>Always remember you can [undo](#undo---reverting-commands)!

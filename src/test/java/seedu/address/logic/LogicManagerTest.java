@@ -20,17 +20,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.address.commons.core.Theme;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.ShortcutCommand;
+import seedu.address.logic.commands.ThemeCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyShortcutMap;
-import seedu.address.model.ShortcutMap;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.location.Location;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -97,6 +100,73 @@ public class LogicManagerTest {
 
         assertCommandSuccess(aliasedAddCommand, String.format(AddCommand.MESSAGE_SUCCESS,
                 Messages.format(expectedLocation)), expectedModel);
+    }
+
+    @Test
+    public void execute_undoRedoAddressBookChange_success() throws Exception {
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + POSTAL_CODE_DESC_AMY + DATE_DESC_AMY;
+
+        logic.execute(addCommand);
+        assertCommandSuccess(UndoCommand.COMMAND_WORD, UndoCommand.MESSAGE_SUCCESS, new ModelManager());
+
+        ModelManager expectedModel = new ModelManager();
+        Location expectedLocation = new LocationBuilder(AMY).withTags().build();
+        expectedModel.addLocation(expectedLocation);
+        assertCommandSuccess(RedoCommand.COMMAND_WORD, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_undoRedoThemeChange_success() throws Exception {
+        assertCommandSuccess(ThemeCommand.COMMAND_WORD + " dark",
+                String.format(ThemeCommand.MESSAGE_SUCCESS, "dark"),
+                createModelWithTheme(Theme.DARK));
+
+        assertCommandSuccess(UndoCommand.COMMAND_WORD, UndoCommand.MESSAGE_SUCCESS, new ModelManager());
+        assertCommandSuccess(RedoCommand.COMMAND_WORD, RedoCommand.MESSAGE_SUCCESS, createModelWithTheme(Theme.DARK));
+    }
+
+    @Test
+    public void execute_undoRedoShortcutChange_success() throws Exception {
+        assertCommandSuccess(ShortcutCommand.COMMAND_WORD + " set a add",
+                String.format(ShortcutCommand.MESSAGE_SET_SUCCESS, "a", "add"),
+                createModelWithShortcut("a", "add"));
+
+        assertCommandSuccess(UndoCommand.COMMAND_WORD, UndoCommand.MESSAGE_SUCCESS, new ModelManager());
+        assertCommandSuccess(RedoCommand.COMMAND_WORD, RedoCommand.MESSAGE_SUCCESS,
+                createModelWithShortcut("a", "add"));
+    }
+
+    @Test
+    public void execute_nonMutatingShortcutList_doesNotAffectRedoState() throws Exception {
+        logic.execute(ShortcutCommand.COMMAND_WORD + " set a add");
+        logic.execute(UndoCommand.COMMAND_WORD);
+
+        Model expectedModel = new ModelManager();
+        assertCommandSuccess(ShortcutCommand.COMMAND_WORD + " list",
+                "No shortcuts defined.", expectedModel);
+        assertCommandSuccess(RedoCommand.COMMAND_WORD, RedoCommand.MESSAGE_SUCCESS,
+                createModelWithShortcut("a", "add"));
+    }
+
+    @Test
+    public void execute_undoAfterFailedCommand_preservesPreviousUndoState() throws Exception {
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + POSTAL_CODE_DESC_AMY + DATE_DESC_AMY;
+
+        logic.execute(addCommand);
+        assertCommandException("delete 9", MESSAGE_INVALID_LOCATION_DISPLAYED_INDEX);
+        assertCommandSuccess(UndoCommand.COMMAND_WORD, UndoCommand.MESSAGE_SUCCESS, new ModelManager());
+    }
+
+    @Test
+    public void execute_undoWithoutHistory_throwsCommandException() {
+        assertCommandException(UndoCommand.COMMAND_WORD, UndoCommand.MESSAGE_FAILURE);
+    }
+
+    @Test
+    public void execute_redoWithoutHistory_throwsCommandException() {
+        assertCommandException(RedoCommand.COMMAND_WORD, RedoCommand.MESSAGE_FAILURE);
     }
 
     @Test
@@ -174,7 +244,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new ShortcutMap());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(model.getUserPrefs()),
+                model.getShortcutMap());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -257,6 +328,18 @@ public class LogicManagerTest {
 
         assertCommandSuccess(addCommand, String.format(AddCommand.MESSAGE_SUCCESS,
                 Messages.format(expectedLocation)), expectedModel);
+    }
+
+    private ModelManager createModelWithTheme(Theme theme) {
+        ModelManager expectedModel = new ModelManager();
+        expectedModel.setTheme(theme);
+        return expectedModel;
+    }
+
+    private ModelManager createModelWithShortcut(String alias, String commandWord) {
+        ModelManager expectedModel = new ModelManager();
+        expectedModel.setShortcut(alias, commandWord);
+        return expectedModel;
     }
 }
 
