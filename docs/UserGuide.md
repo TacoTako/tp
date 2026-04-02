@@ -39,7 +39,7 @@ It offers a **minimalist, easy-to-learn experience** designed for digital nomads
 
 1. Ensure you have Java `17` or above installed on your machine.<br>
    You can do this by opening the Command Prompt app (for Windows users), or Terminal (for Mac/Linux users) and entering "`java -version`".<br>
-1. Download the latest version of `AddressMe.jar` from the GitHub releases page [here](https://github.com/AY2526S2-CS2103T-W14-3/tp/releases).
+1. Download the latest version of `addressbook.jar` from the GitHub releases page [here](https://github.com/AY2526S2-CS2103T-W14-3/tp/releases).
 2. Place the AddressMe.jar file in a folder - this becomes your AddressMe home folder.
 3. While in your home folder, right-click and select "Open in Terminal"
    ![ug_quickstart_nav_help.png](images/ug_quickstart_nav_help.png)
@@ -108,8 +108,9 @@ AddressMe even accepts a large range of date inputs so you can type dates flexib
 
 - With **day of the week** (case-insensitive): AddressMe picks the upcoming date of that weekday.
 
-| **Monday - Sunday** | **Mon - Sun** |
-| ------------------- | ------------- |
+| **Long form**       | **Short form** (First 3 letters) |
+|---------------------|----------------------------------|
+| **Monday - Sunday** | **Mon - Sun**                    |
 
 
 <div markdown="span" class="alert alert-primary">
@@ -266,7 +267,7 @@ Examples:
 
 Updates one or more fields of a saved location.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [d/DATE]… [d+/DATE]… [d-/DATE]… [t/TAG]… [t+/TAG]… [t-/TAG]…`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/POSTAL_CODE] [d/DATE]… [d+/DATE]… [d-/DATE]… [t/TAG]… [t+/TAG]… [t-/TAG]…`
 
 * Edits the location at the specified `INDEX`. The index refers to the index number shown in the displayed location list. The index **must be a positive integer** 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -430,22 +431,22 @@ Format: `exit`
 
 ## 4. Command summary
 
-| **Action**      | **Format**                                                                                                                | **Examples**                                                              |
-|-----------------|---------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| **Add**         | `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/POSTAL_CODE] [d/DATE]... [t/TAG]...`                                | `add n/Nomad Hub p/98765432 e/hi@nomad.sg a/12 Tanjong Pagar t/coworking` |
-| **Clear**       | `clear`                                                                                                                   | `clear`                                                                   |
-| **Delete**      | `delete INDEX [MORE_INDEXES]...`                                                                                          | `delete 3` or `delete 1 2 3`                                              |
-| **Edit**        | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [d/DATE]… [d+/DATE]… [d-/DATE]… [t/TAG]… [t+/TAG]… [t-/TAG]…` | `edit 2 n/James Lee e/jameslee@example.com d+/e-friday`                   |
-| **Find**        | `find [KEYWORD] [MORE_KEYWORDS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]… [d/DATE]…`                              | `find n/Cafe t/Halal d/3/4/26`                                            |
-| **List**        | `list`                                                                                                                    | `list`                                                                    |
-| **Note**        | `note n/NOTE d/DATE`                                                                                                      | `note n/Great place d/2026-03-24`                                         |
-| **Delete Note** | `note d-/DATE`                                                                                                            | `note d-/2026-03-24`                                                      |
-| **Plan**        | `plan DATE` or `plan`                                                                                                     | `plan d/23/9`                                                             |
-| **Shortcut**    | `shortcut set ALIAS COMMAND_WORD` / `shortcut remove ALIAS` / `shortcut list`                                             | `shortcut set a add`, `shortcut remove a`, `shortcut list`                |
-| **Theme**       | `theme THEME_NAME`                                                                                                        | `theme light` or `theme dark`                                             |
-| **Undo**        | `undo`                                                                                                                    | `undo`                                                                    |
-| **Redo**        | `redo`                                                                                                                    | `redo`                                                                    |
-| **Help**        | `help` / `help COMMAND_WORD` / `help -ug`                                                                                 | `help`, `help add`, `help -ug`                                            |
+| **Action**      | **Format**                                                                                                                                | **Examples**                                                              |
+|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| **Add**         | `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/POSTAL_CODE] [d/DATE]... [t/TAG]...`                                                | `add n/Nomad Hub p/98765432 e/hi@nomad.sg a/12 Tanjong Pagar t/coworking` |
+| **Clear**       | `clear`                                                                                                                                   | `clear`                                                                   |
+| **Delete**      | `delete INDEX [MORE_INDEXES]...`                                                                                                          | `delete 3` or `delete 1 2 3`                                              |
+| **Edit**        | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/POSTAL_CODE] [d/DATE]… [d+/DATE]… [d-/DATE]… [t/TAG]… [t+/TAG]… [t-/TAG]…` | `edit 2 n/James Lee e/jameslee@example.com d+/e-friday`                   |
+| **Find**        | `find [KEYWORD] [MORE_KEYWORDS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]… [d/DATE]…`                                              | `find n/Cafe t/Halal d/3/4/26`                                            |
+| **List**        | `list`                                                                                                                                    | `list`                                                                    |
+| **Note**        | `note n/NOTE d/DATE`                                                                                                                      | `note n/Great place d/2026-03-24`                                         |
+| **Delete Note** | `note d-/DATE`                                                                                                                            | `note d-/2026-03-24`                                                      |
+| **Plan**        | `plan DATE` or `plan`                                                                                                                     | `plan d/23/9`                                                             |
+| **Shortcut**    | `shortcut set ALIAS COMMAND_WORD` / `shortcut remove ALIAS` / `shortcut list`                                                             | `shortcut set a add`, `shortcut remove a`, `shortcut list`                |
+| **Theme**       | `theme THEME_NAME`                                                                                                                        | `theme light` or `theme dark`                                             |
+| **Undo**        | `undo`                                                                                                                                    | `undo`                                                                    |
+| **Redo**        | `redo`                                                                                                                                    | `redo`                                                                    |
+| **Help**        | `help` / `help COMMAND_WORD` / `help -ug`                                                                                                 | `help`, `help add`, `help -ug`                                            |
 
 
 ## 5. CLI Power Features
@@ -511,7 +512,7 @@ Install AddressMe on the new device, run it once to generate the data folder, th
 
 **Q:** How do I move my data to a new laptop?
 
-**A:** Install AddressMe on the new device, run it once, then copy the addressbook.json file (found in the folder labelled "data") from the old device into the new device's data folder, replacing the file that was created.
+**A:** Install AddressMe on the new device, run it once, then copy the all .json files (found in the folder labelled "data") from the old device into the new device's data folder, replacing the files that were created.
 
 **Q:** Can I have the same location listed multiple times?
 
@@ -519,8 +520,7 @@ Install AddressMe on the new device, run it once to generate the data folder, th
 
 **Q:** Will my shortcuts and themes persist after I close AddressMe?
 
-**A:** Yes. These are saved in preferences.json alongside your data and will be restored the next time you launch the app.
-
+**A:** Yes. Your shortcuts are saved in shortcut.json in the data folder, and your theme is saved in the preferences.json, all of which will be restored the next time you launch the app.
 ### Known Issues
 
 **Multiple Monitors:** If you move AddressMe to a secondary screen and later disconnect that monitor, the application window may open off-screen. Fix: delete preferences.json in your home folder before relaunching.<br><br>
