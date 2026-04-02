@@ -24,7 +24,7 @@ It offers a **minimalist, easy-to-learn experience** designed for digital nomads
 - Prefer **typing** over clicking through menus?
 - Feel frustrated by overly complicated itinerary planners?
 
-<h3>**If so, AddressMe is built for you!**</h3>
+<h3 style="font-weight: bold;">If so, AddressMe is built for you!</h3>
 
 ---
 
