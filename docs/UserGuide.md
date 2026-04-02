@@ -3,126 +3,213 @@ layout: page
 title: User Guide
 ---
 
-AddressMe is a **desktop app for managing destinations, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AddressMe can get your contact management tasks done faster than traditional GUI apps.
+---
+
+> **FAST • FLEXIBLE • FOOLPROOF**
+
+_Purpose-built, clutter-free itinerary planner designed for digital nomads_
+
+---
+
+AddressMe helps you **plan and track** your travel destinations, dates, and important details in one convenient platform, optimised for use entirely through a **Command Line Interface** (CLI) with the benefits of a Graphical User Interface (GUI).
+
+It offers a **minimalist, easy-to-learn experience** designed for digital nomads who need their location data to be structured and always accessible. If you can type quickly and get frustrated by over-engineered itinerary planners, AddressMe is the app for you!
+
+---
+
+## Do you
+
+- **Move regularly** and need to track multiple locations and visit plans?
+- Need your data even with **unreliable internet**?
+- Prefer **typing** over clicking through menus?
+- Feel frustrated by overly complicated itinerary planners?
+
+### **If so, AddressMe is built for you!**
+
 
 * Table of Contents
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
+## 1. Quick Start
 
-## Quick start
+---
+### Installation
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+1. Ensure you have Java `17` or above installed on your machine.<br>
+   You can do this by opening the Command Prompt app (for Windows users), or Terminal (for Mac/Linux users) and entering "`java -version`".<br>
+1. Download the latest version of `AddressMe.jar` from the GitHub releases page [here](https://github.com/AY2526S2-CS2103T-W14-3/tp/releases). 
+2. Place the AddressMe.jar file in a folder - this becomes your AddressMe home folder. 
+3. While in your home folder, right-click and select "Open in Terminal"
+   ![ug_quickstart_nav_help.png](images/ug_quickstart_nav_help.png)
+4. Enter the following command into the terminal:
+   `java -jar addressbook.jar`
+5. That's it! AddressMe launches with sample data, and you can plan your trip immediately.
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+<div markdown="block" class="alert alert-warning">
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+**:warning: Mac users:**<br>
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+Ensure you have the exact Java JDK version [here](https://se-education.org/guides/tutorials/javaInstallationMac.html) to avoid compatibility issues.
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will show the local help overview.<br>
-   Some example commands you can try:
+</div>
 
-   * `list` : Lists all contacts.
+### Interface Overview
+![ug_interface_overview.png](images/ug_interface_overview.png)
+AddressMe has four main UI zones:
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+| **Feature**       | **Description**                                                          |
+| ----------------- | ------------------------------------------------------------------------ |
+| **Command Box**   | Type your commands here and press Enter to execute.                      |
+| **Result Panel**  | Displays confirmation messages, search results, and errors encountered.  |
+| **Location List** | Shows all your saved locations, updated in real time after each command. |
+| **Planner Panel** | View destinations on a specific date (using the **plan** command).       |
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+## 2. Starting to use Commands
 
-   * `clear` : Deletes all contacts.
+Before we dive into each feature, here's a tip to make everything smooth and easy.
 
-   * `exit` : Exits the app.
+Every command has a helpful guiding message:
 
-1. Refer to the [Features](#features) below for details of each command.
+![ug_command_guide.png](images/ug_command_guide.png)
+
+A valid **add** command is shown below.
+
+![ug_command_format.png](images/ug_command_format.png)
+
+| **Format**               | **Description**                                                                                                                                                       |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **UPPER_CASE**           | A value you must supply. e.g. NAME in add n/NAME means you type the actual name.<br><br>e.g. "_n/_**_Nomad Hub_**_"_                                                  |
+| **\[Square brackets\]**  | Optional parameters. You may include it or leave it out.<br><br>E.g. _"_**_\[e/EMAIL\]_**_"_ is optional so we can leave it out.                                      |
+| **t/TAG...**             | The ellipsis means you can submit more than one of these parameters.<br><br>e.g. "_t/_**_workplace_**_" OR "t/_**_workplace_** _t/_**_networking_**_"_                |
+| **Any order**            | Parameters can be entered in any order unless specified otherwise.<br><br>e.g. "_t/_**_workplace_** _n/_**_Nomad Hub_**_" OR "n/_**_Nomad Hub_** _t/_**_workplace_**" |
+| **Single-word commands** | Some commands take no extra parameters, like **help**, **list**, **exit**, **clear**.                                                                                 |
+
+### Date Formats
+
+AddressMe even accepts a large range of date inputs so you can type dates flexibly.
+
+- Dates are separated with **slashes** ("**/**") or **hyphens** ("**\-**").
+- With **day**, **month** and **year** fully specified:
+
+| **With slashes** | **With hyphens** |
+|------------------|------------------|
+| **YYYY/MM/DD**   | **YYYY-MM-DD**   |
+| **YYYY/MM/DD**   | **YYYY-MM-DD**   |
+| **YYYY/M/D**     | **YYYY-M-D**     |
+| **D/M/YYYY**     | **D-M-YYYY**     |
+| **D/M/YY**       | **D-M-YY**       |
+
+- With **day** and **month** (no **year**): AddressMe picks the next occurrence of that date.
+
+| **DD/MM** | **DD-MM** |
+| --------- | --------- |
+| **D/M**   | **D-M**   |
+
+- With **day of the week** (case-insensitive): AddressMe picks the upcoming date of that weekday.
+
+| **Monday - Sunday** | **Mon - Sun** |
+| ------------------- | ------------- |
+
+
+<div markdown="span" class="alert alert-primary">
+
+**:bulb:Pro Tip - Fast Dates:**
+If today is Tuesday, typing `Tue` matches today. Typing `Wednesday` or `Wed` matches tomorrow. Typing `Mon` matches next Monday!<br>
+Alternatively, typing `today` also works!
+
+</div>
+
+---
+### Start Your First Commands
+
+Now that you're familiar with commands, try typing these commands into AddressMe to get a feel for the application.
+
+- **`list`**
+
+Shows all saved locations.
+
+- **`find Cafe`**
+
+Searches for any location with 'Cafe' in its name.
+
+- **`add n/Nomad Hub e/hello@nomadhub.com a/12 Tanjong Pagar t/coworking`**
+
+Adds a new coworking space.
+
+- **`plan 2026-04-01`**
+
+Shows your itinerary plan for 1 April 2026.
+
+- **`exit`**
+
+Closes the application.
+
+When you're comfortable with sending commands, you're ready to dive deeper into each [feature](#features)!
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features
-
-<div markdown="block" class="alert alert-info">
-
-**:information_source: Notes about the command format:**<br>
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-
-* Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-
-* Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-
-* Extraneous parameters for commands that do not take in parameters (such as `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `list 123`, it will be interpreted as `list`.
-
-* Date fields support the formats: `yyyy/M/d`, `d/M/yyyy`, `d/M/yy` as well as hyphenated variants.
-E.g. 2 Jan 2026 can be typed as `2026/01/02`, `2/1/26`, `2026-1-02`, `02-1-2026`.
-* Date fields support optional years: `d/M` and `d-M`. It will default to a date that has not passed.
-E.g. If today was 2 Jan 2026, `01/01` would be 1 Jan 2027, `2/1` would be 2 Jan 2026, `3/1` would be 3 Jan 2026
-* Date fields support days of the week, e.g. `Tue`, `Friday` (non-case-sensitive). It will default to the upcoming day of the week.
-E.g. If today was Tuesday, `Tue` would be today, `Wednesday` would be tomorrow, `Mon` would be next Monday.
-
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-</div>
+## 3. Features - Full Reference
 
 ### Viewing help : `help`
 
-Shows the local help overview, command-specific help, or opens the online User Guide.
+Shows you commands you can use, as well as _how_ to use specific commands.
 
-Format:
+Formats:
 ```
 help
 help COMMAND_WORD
 help -ug
 ```
 
-* `help` displays a summary of all supported commands in the CLI.
-* `help COMMAND_WORD` displays detailed local guidance for that command.
-* `COMMAND_WORD` must be an existing built-in command word.
-* `help -ug` opens the help window for the online User Guide (see below).
+* `help` displays a summary of all supported commands in AddressMe.
+* `help COMMAND_WORD` displays detailed local guidance for that command.<br>
+`COMMAND_WORD` must be an existing built-in command word.
+
+> Example:
+> `help add` shows the specific usage for the `add` command.
+
+* `help -ug` opens the help window for the link to the online User Guide (see below).
 
 ![Help window](images/helpMessage.png)
 
-Examples:
-* `help add` shows the local guidance for the `add` command.
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+If you minimise the Help window and run help again, the minimised window will not reappear automatically. Restore it manually from your taskbar.
+</div>
 
 ### Adding a location: `add`
 
-Adds a location to the address book.
+Saves a new location to your address book, with optional visit dates and tags for easy retrieval later.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [d/DATE]… [t/TAG]…​`
+Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/POSTAL_CODE] [d/DATE]... [t/TAG]...`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A location can have any number of visit dates or tags (including 0)
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Field Guide:**<br>
+**n/**: Name of the location (e.g. the cafe, clinic, or coworking space).
+
+**p/**: Phone number - accepts numbers only, and must be 15 digits or less.
+
+**e/**: Email address.
+
+**a/**: Street address.
+
+**c/**: Postal code - must be alphanumeric.
+
+**d/**: Visit date - accepts any format from Section 3. Repeat for multiple dates.
+
+**t/**: Tag for categorisation (e.g. halal, coworking, pharmacy). Repeat for multiple tags.
 </div>
 
-Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/2026-01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal d/2026-03-12 d/2026-04-12`
+> Examples:<br>
+> `add n/Nomad Hub p/98765432 e/hello@nomadhub.com a/12 Tanjong Pagar d/2026-04-01 t/coworking`<br>
+> 
+> `add n/Al-Azhar Restaurant p/63910060 e/contact@alazhar.sg a/18 Arab St t/halal t/dinner d/Friday`
 
-### Recording a note : `note`
-
-Records a date-bound note that will be persisted in future milestones. Currently it validates syntax via CLI and confirms receipt.
-
-Format: `note n/NOTE d/DATE` (DATE required)
-
-Examples:
-* `note n/Great place d/2026-03-24`
-
-### Deleting a note: `note d-`
-
-Deletes a note by date.
-
-Format: note d-/DATE
-
-Example:
-* `note d-/2026-03-24`
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+A location can have any number of tags and visit dates - including none at all. You can always add them later using the edit command.
+</div>
 
 ### Listing all locations : `list`
 
@@ -152,20 +239,6 @@ Examples:
 * `shortcut set e edit`    Creates alias 'e' for 'edit'
 * `shortcut list`          Lists all defined shortcuts
 * `shortcut remove e`      Removes alias 'e'
-
-### Changing the application theme : `theme`
-
-Switches the application between light mode and dark mode.
-
-Format:
-```
-theme light
-theme dark
-```
-
-* Use `theme light` to switch to light mode.
-* Use `theme dark` to switch to dark mode.
-* The selected theme is saved and restored the next time the app starts.
 
 ### Editing a location : `edit`
 
@@ -227,6 +300,24 @@ Examples:
 * `find Sentosa` followed by `delete 1` deletes the 1st location in the results of the `find` command.
 * `list` followed by `delete 1 3 5` deletes the 1st, 3rd, and 5th locations in the address book.
 
+### Recording a note : `note`
+
+Records a date-bound note that will be persisted in future milestones. Currently it validates syntax via CLI and confirms receipt.
+
+Format: `note n/NOTE d/DATE` (DATE required)
+
+Examples:
+* `note n/Great place d/2026-03-24`
+
+### Deleting a note: `note d-`
+
+Deletes a note by date.
+
+Format: note d-/DATE
+
+Example:
+* `note d-/2026-03-24`
+
 ### Using the itinerary planner : `plan`
 
 Displays the list of locations assigned to a date.
@@ -239,6 +330,20 @@ Format: `plan [DATE]`
 Examples:
 * `plan 12/3/26` shows the locations planned for 12 March 2026 on the planner.
 * `plan` clears the planner page.
+
+### Changing the application theme : `theme`
+
+Switches the application between light mode and dark mode.
+
+Format:
+```
+theme light
+theme dark
+```
+
+* Use `theme light` to switch to light mode.
+* Use `theme dark` to switch to dark mode.
+* The selected theme is saved and restored the next time the app starts.
 
 ### Clearing all entries : `clear`
 
