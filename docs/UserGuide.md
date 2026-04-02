@@ -521,6 +521,7 @@ Install AddressMe on the new device, run it once to generate the data folder, th
 **Q:** Will my shortcuts and themes persist after I close AddressMe?
 
 **A:** Yes. Your shortcuts are saved in shortcut.json in the data folder, and your theme is saved in the preferences.json, all of which will be restored the next time you launch the app.
+
 ### Known Issues
 
 **Multiple Monitors:** If you move AddressMe to a secondary screen and later disconnect that monitor, the application window may open off-screen. Fix: delete preferences.json in your home folder before relaunching.<br><br>
