@@ -419,7 +419,7 @@ Format: `clear`
 ### Exiting the program : `exit`
 
 <br>If you need to start fresh, consider backing up your data file first (see [Data Management](#6-data-management)).
-<br>Always remember you can [undo](#undo---reverting-commands)!
+<br>Always remember you can [undo](#undo---reverting-the-last-change)!
 </div>
 
 ### `exit` - Exiting the program
@@ -443,6 +443,8 @@ Format: `exit`
 | **Plan**        | `plan DATE` or `plan`                                                                                                     | `plan d/23/9`                                                             |
 | **Shortcut**    | `shortcut set ALIAS COMMAND_WORD` / `shortcut remove ALIAS` / `shortcut list`                                             | `shortcut set a add`, `shortcut remove a`, `shortcut list`                |
 | **Theme**       | `theme THEME_NAME`                                                                                                        | `theme light` or `theme dark`                                             |
+| **Undo**        | `undo`                                                                                                                    | `undo`                                                                    |
+| **Redo**        | `redo`                                                                                                                    | `redo`                                                                    |
 | **Help**        | `help` / `help COMMAND_WORD` / `help -ug`                                                                                 | `help`, `help add`, `help -ug`                                            |
 
 
