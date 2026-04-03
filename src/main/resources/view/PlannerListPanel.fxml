@@ -7,8 +7,8 @@
 <VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" spacing="10.0" >
     <Label fx:id="plannerHeader" text="Start planning..." styleClass="label-header" />
 
-    <VBox fx:id="noteContainer" VBox.vgrow="ALWAYS" />
+    <VBox fx:id="noteContainer" />
 
-    <ListView fx:id="plannerListView"/>
+    <ListView fx:id="plannerListView"  VBox.vgrow="ALWAYS" />
 </VBox>
 

@@ -36,6 +36,8 @@ public class PlannerListPanel extends UiPart<Region> {
         super(FXML);
         plannerListView.setItems(plannerList);
         plannerListView.setCellFactory(listView -> new PlannerListPanel.PlannerListViewCell());
+
+        //TODO: REMOVE THIS ONCE NOTE IS IMPLEMENTED CORRTECTLY, THIS IS JUST A PLACEHOLDER
         showNote(new NoteContent("TEST"));
     }
 
