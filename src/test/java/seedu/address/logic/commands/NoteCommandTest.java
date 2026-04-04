@@ -29,6 +29,7 @@ public class NoteCommandTest {
         NoteCommand command = new NoteCommand(new NoteContent("Great place"), VisitDate.of("2026-03-24"));
         String expectedMessage = String.format(NoteCommand.MESSAGE_SUCCESS, "Great place (24 Mar 26)");
 
+        expectedModel.setNote(VisitDate.of("2026-03-24"), new NoteContent("Great place"));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 

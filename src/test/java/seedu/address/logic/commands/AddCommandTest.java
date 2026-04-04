@@ -213,6 +213,16 @@ public class AddCommandTest {
         public void updatePlannerLocationList(LocalDate date) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void setNote(seedu.address.model.location.dates.VisitDate date, seedu.address.model.location.NoteContent note) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public javafx.beans.value.ObservableValue<seedu.address.model.location.NoteContent> getPlannerNoteProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

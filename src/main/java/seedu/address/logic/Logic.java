@@ -37,6 +37,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the locations to be displayed in the planner */
     ObservableList<Location> getPlannerLocationList();
 
+    /** Returns an observable property pointing to the current active note in the planner */
+    javafx.beans.value.ObservableValue<seedu.address.model.location.NoteContent> getPlannerNoteProperty();
+
     /**
      * Returns the user prefs' address book file path.
      */

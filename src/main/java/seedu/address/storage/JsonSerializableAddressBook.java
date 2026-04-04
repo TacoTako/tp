@@ -1,7 +1,9 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -12,6 +14,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.location.Location;
+import seedu.address.model.location.NoteContent;
+import seedu.address.model.location.dates.VisitDate;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -22,13 +26,20 @@ class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_LOCATION = "Locations list contains duplicate location(s).";
 
     private final List<JsonAdaptedLocation> locations = new ArrayList<>();
+    private final Map<String, String> notes = new HashMap<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given locations.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("locations") List<JsonAdaptedLocation> locations) {
-        this.locations.addAll(locations);
+    public JsonSerializableAddressBook(@JsonProperty("locations") List<JsonAdaptedLocation> locations,
+                                       @JsonProperty("notes") Map<String, String> notes) {
+        if (locations != null) {
+            this.locations.addAll(locations);
+        }
+        if (notes != null) {
+            this.notes.putAll(notes);
+        }
     }
 
     /**
@@ -38,6 +49,7 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         locations.addAll(source.getLocationList().stream().map(JsonAdaptedLocation::new).collect(Collectors.toList()));
+        source.getNoteMap().forEach((date, note) -> notes.put(date.toString(), note.toString()));
     }
 
     /**
@@ -53,6 +65,16 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_LOCATION);
             }
             addressBook.addLocation(location);
+        }
+        for (Map.Entry<String, String> entry : notes.entrySet()) {
+            VisitDate visitDate = VisitDate.of(entry.getKey());
+            NoteContent noteContent;
+            if (NoteContent.isValidNoteContent(entry.getValue())) {
+                noteContent = new NoteContent(entry.getValue());
+            } else {
+                throw new IllegalValueException(NoteContent.MESSAGE_CONSTRAINTS);
+            }
+            addressBook.setNote(visitDate, noteContent);
         }
         return addressBook;
     }
