@@ -38,11 +38,13 @@ public class NoteCommandTest {
         NoteCommand first = new NoteCommand(new NoteContent("Great place"), VisitDate.of("2026-03-24"));
         NoteCommand second = new NoteCommand(new NoteContent("Great place"), VisitDate.of("2026-03-24"));
         NoteCommand third = new NoteCommand(new NoteContent("Different note"), VisitDate.of("2026-03-24"));
+        NoteCommand fourth = new NoteCommand(new NoteContent("Great place"), VisitDate.of("2026-03-25"));
 
         assertEquals(first, first);
         assertEquals(first, second);
         assertNotEquals(first, third);
+        assertNotEquals(first, fourth);
         assertNotEquals(first, null);
-        assertNotEquals(first, new Object());
+        assertNotEquals(first, 1);
     }
 }

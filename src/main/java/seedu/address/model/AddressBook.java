@@ -3,7 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +32,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         locations = new UniqueLocationList();
-        notes = new HashMap<>();
+        notes = new LinkedHashMap<>();
     }
 
     public AddressBook() {}

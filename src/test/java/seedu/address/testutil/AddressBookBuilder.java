@@ -1,7 +1,6 @@
 package seedu.address.testutil;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.location.Location;
 
 /**
  * A utility class to help with building Addressbook objects.
@@ -23,8 +22,17 @@ public class AddressBookBuilder {
     /**
      * Adds a new {@code Location} to the {@code AddressBook} that we are building.
      */
-    public AddressBookBuilder withLocation(Location location) {
+    public AddressBookBuilder withLocation(seedu.address.model.location.Location location) {
         addressBook.addLocation(location);
+        return this;
+    }
+
+    /**
+     * Adds a new note to the {@code AddressBook} that we are building.
+     */
+    public AddressBookBuilder withNote(seedu.address.model.location.dates.VisitDate date,
+            seedu.address.model.location.NoteContent note) {
+        addressBook.setNote(date, note);
         return this;
     }
 

@@ -275,7 +275,14 @@ public class ModelManager implements Model {
         }
 
         if (combinedNotes.length() > 0) {
-            plannerNote.set(new NoteContent(combinedNotes.toString()));
+            String combinedString = combinedNotes.toString().trim();
+            if (combinedString.isEmpty()) {
+                plannerNote.set(null);
+            } else {
+                // Remove debug print and fix potential multiline regex issue
+                // although it should be fine.
+                plannerNote.set(new NoteContent(combinedString));
+            }
         } else {
             plannerNote.set(null);
         }
@@ -283,6 +290,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setNote(VisitDate date, NoteContent note) {
+        requireAllNonNull(date, note);
         addressBook.setNote(date, note);
         if (currentPlannedDate != null && date.isOn(currentPlannedDate)) {
             updatePlannerNote();
@@ -309,7 +317,9 @@ public class ModelManager implements Model {
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && shortcutMap.equals(otherModelManager.shortcutMap)
-                && filteredLocations.equals(otherModelManager.filteredLocations);
+                && filteredLocations.equals(otherModelManager.filteredLocations)
+                && (currentPlannedDate == null ? otherModelManager.currentPlannedDate == null
+                        : currentPlannedDate.equals(otherModelManager.currentPlannedDate));
     }
 
     private void restoreState(AppState state) {
