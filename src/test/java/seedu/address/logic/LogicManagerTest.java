@@ -1,7 +1,6 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_LOCATION_DISPLAYED_INDEX;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_AMY;
@@ -73,7 +72,7 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_LOCATION_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand, Messages.getInvalidLocationDisplayedIndexMessage(0));
     }
 
     @Test
@@ -155,7 +154,7 @@ public class LogicManagerTest {
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + POSTAL_CODE_DESC_AMY + DATE_DESC_AMY;
 
         logic.execute(addCommand);
-        assertCommandException("delete 9", MESSAGE_INVALID_LOCATION_DISPLAYED_INDEX);
+        assertCommandException("delete 9", Messages.getInvalidLocationDisplayedIndexMessage(1));
         assertCommandSuccess(UndoCommand.COMMAND_WORD, UndoCommand.MESSAGE_SUCCESS, new ModelManager());
     }
 

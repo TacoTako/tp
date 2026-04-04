@@ -6,6 +6,8 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.location.Location;
+import seedu.address.model.location.dates.VisitDate;
+import seedu.address.model.tag.Tag;
 
 /**
  * Container for user visible messages.
@@ -32,6 +34,16 @@ public class Messages {
     }
 
     /**
+     * Returns an error message indicating the valid displayed index range.
+     */
+    public static String getInvalidLocationDisplayedIndexMessage(int locationCount) {
+        if (locationCount <= 0) {
+            return "Invalid index. There are no entries in the current list.";
+        }
+        return String.format("Invalid index. Valid index range is 1 to %d.", locationCount);
+    }
+
+    /**
      * Formats the {@code location} for display to the user.
      */
     public static String format(Location location) {
@@ -50,11 +62,20 @@ public class Messages {
         if (location.getVisitDates().isEmpty()) {
             builder.append("-");
         } else {
-            builder.append(location.getVisitDates());
+            builder.append(location.getVisitDates().stream()
+                    .map(VisitDate::toString)
+                    .collect(Collectors.joining(", ")));
         }
 
         builder.append("; Tags: ");
-        location.getTags().forEach(builder::append);
+        if (location.getVisitDates().isEmpty()) {
+            builder.append("-");
+        } else {
+            builder.append(location.getTags().stream()
+                    .map(Tag::toString)
+                    .collect(Collectors.joining(", ")));
+        }
+
         return builder.toString();
     }
 }
