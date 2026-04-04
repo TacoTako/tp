@@ -508,7 +508,7 @@ Install AddressMe on the new device, run it once to generate the data folder, th
 
 **Q:** How do I move my data to a new laptop?
 
-**A:** Install AddressMe on the new device, run it once, then copy the all .json files (found in the folder labelled "data") from the old device into the new device's data folder, replacing the files that were created.
+**A:** Install AddressMe on the new device, run it once, then copy all the .json files (found in the folder labelled "data") from the old device into the new device's data folder, replacing the files that were created.
 
 **Q:** Can I have the same location listed multiple times?
 
@@ -516,7 +516,7 @@ Install AddressMe on the new device, run it once to generate the data folder, th
 
 **Q:** Will my shortcuts and themes persist after I close AddressMe?
 
-**A:** Yes. Your shortcuts are saved in shortcut.json in the data folder, and your theme is saved in the preferences.json, all of which will be restored the next time you launch the app.
+**A:** Yes. Your shortcuts are saved in shortcut.json in the data folder, and your theme is saved in preferences.json, all of which will be restored the next time you launch the app.
 
 ### Known Issues
 
