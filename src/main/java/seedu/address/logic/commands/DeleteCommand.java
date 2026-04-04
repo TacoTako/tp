@@ -24,7 +24,8 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the location(s) identified by the index number(s) used in the displayed location list.\n"
-            + "Parameters: INDEX [MORE_INDEXES]... (indices must be positive integers)\n"
+            + "Parameters: INDEX [MORE_INDEXES]...\n"
+            + "Note: Indices must be positive integers.\n"
             + "Example: " + COMMAND_WORD + " 1 2 3";
 
     public static final String MESSAGE_DELETE_LOCATION_SUCCESS = "Deleted Location: %1$s";
