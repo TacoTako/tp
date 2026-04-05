@@ -42,9 +42,15 @@ public class NoteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        model.setNote(date, noteContent);
         String detail = noteContent.toString() + " (" + date.toString() + ")";
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, detail));
+    }
+
+    @Override
+    public boolean isStateMutating() {
+        return true;
     }
 
     @Override

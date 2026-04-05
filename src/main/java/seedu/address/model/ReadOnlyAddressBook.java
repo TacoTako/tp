@@ -14,4 +14,10 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Location> getLocationList();
 
+    /**
+     * Returns an unmodifiable map of the scheduled visit dates to their respective global notes.
+     */
+    java.util.Map<seedu.address.model.location.dates.VisitDate, seedu.address.model.location.NoteContent> getNoteMap();
+
+
 }

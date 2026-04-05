@@ -118,6 +118,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public javafx.beans.value.ObservableValue<seedu.address.model.location.NoteContent> getPlannerNoteProperty() {
+        return model.getPlannerNoteProperty();
+    }
+
+    @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
     }
