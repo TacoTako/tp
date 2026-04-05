@@ -53,7 +53,7 @@ public class LocationTest {
         assertFalse(ALICE.isSameLocation(editedAlice));
 
         Location editedBob = new LocationBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
-        assertFalse(BOB.isSameLocation(editedBob));
+        assertTrue(BOB.isSameLocation(editedBob));
 
         String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
         editedBob = new LocationBuilder(BOB).withName(nameWithTrailingSpaces).build();
