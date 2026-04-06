@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.util.Comparator;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -64,6 +65,7 @@ public class Messages {
             builder.append("-");
         } else {
             builder.append(location.getVisitDates().stream()
+                    .sorted(Comparator.comparing(VisitDate::toSortString))
                     .map(VisitDate::toString)
                     .collect(Collectors.joining(", ")));
         }
