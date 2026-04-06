@@ -39,7 +39,7 @@ public class DateParser {
             .appendOptional(DateTimeFormatter.ofPattern("d/M/uuuu", Locale.ENGLISH))
             .appendOptional(DateTimeFormatter.ofPattern("d/M/uu", Locale.ENGLISH))
             .appendOptional(DateTimeFormatter.ofPattern("d-M-uu", Locale.ENGLISH))
-            .toFormatter().withResolverStyle(ResolverStyle.STRICT);;
+            .toFormatter().withResolverStyle(ResolverStyle.STRICT);
 
     private static final DateTimeFormatter MONTH_DAY_FORMATTERS = new DateTimeFormatterBuilder()
             .appendOptional(DateTimeFormatter.ofPattern("dd-MM", Locale.ENGLISH))
