@@ -65,6 +65,13 @@ public class JsonSerializableAddressBookTest {
     }
 
     @Test
+    public void constructor_nullLocations_success() throws IllegalValueException {
+        JsonSerializableAddressBook jsonSerializableAddressBook = new JsonSerializableAddressBook(null, null);
+        AddressBook addressBook = jsonSerializableAddressBook.toModelType();
+        assertEquals(new AddressBook(), addressBook);
+    }
+
+    @Test
     public void toModelType_addressBookWithNotes_success() throws Exception {
         AddressBook addressBook = new AddressBookBuilder()
                 .withNote(seedu.address.model.location.dates.VisitDate.of("2026-03-24"),

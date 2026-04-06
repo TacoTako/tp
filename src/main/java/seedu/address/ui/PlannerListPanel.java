@@ -31,7 +31,10 @@ public class PlannerListPanel extends UiPart<Region> {
     private Label plannerHeader;
 
     /**
-     * Creates a {@code LocationListPanel} with the given {@code ObservableList}.
+     * Creates a {@code PlannerListPanel} with the given planner list and planner note observable.
+     *
+     * @param plannerList List of planner locations to display.
+     * @param plannerNote Observable planner note content to display.
      */
     public PlannerListPanel(ObservableList<Location> plannerList, ObservableValue<NoteContent> plannerNote) {
         super(FXML);

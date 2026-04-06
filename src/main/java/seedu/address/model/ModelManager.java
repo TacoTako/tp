@@ -275,14 +275,7 @@ public class ModelManager implements Model {
         }
 
         if (combinedNotes.length() > 0) {
-            String combinedString = combinedNotes.toString().trim();
-            if (combinedString.isEmpty()) {
-                plannerNote.set(null);
-            } else {
-                // Remove debug print and fix potential multiline regex issue
-                // although it should be fine.
-                plannerNote.set(new NoteContent(combinedString));
-            }
+            plannerNote.set(new NoteContent(combinedNotes.toString()));
         } else {
             plannerNote.set(null);
         }

@@ -71,6 +71,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the notes map with {@code notes}.
      */
     public void setNotes(Map<VisitDate, NoteContent> notes) {
+        requireNonNull(notes);
+        notes.forEach((date, note) -> {
+            requireNonNull(date);
+            requireNonNull(note);
+        });
         this.notes.clear();
         this.notes.putAll(notes);
     }

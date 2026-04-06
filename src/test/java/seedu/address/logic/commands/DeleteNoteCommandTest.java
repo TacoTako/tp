@@ -28,7 +28,7 @@ public class DeleteNoteCommandTest {
     public void execute_deleteNote_success() throws Exception {
         VisitDate date = VisitDate.of("2026-03-24");
         seedu.address.model.location.NoteContent note =
-                new seedu.address.model.location.NoteContent("/Involves lots of walking. Bring extra water bottles.");
+                new seedu.address.model.location.NoteContent("Involves lots of walking. Bring extra water bottles.");
 
         model.setNote(date, note);
         expectedModel.setNote(date, note);

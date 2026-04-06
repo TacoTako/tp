@@ -1,7 +1,11 @@
 package seedu.address.model;
 
+import java.util.Map;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.location.Location;
+import seedu.address.model.location.NoteContent;
+import seedu.address.model.location.dates.VisitDate;
 
 /**
  * Unmodifiable view of an address book
@@ -17,7 +21,7 @@ public interface ReadOnlyAddressBook {
     /**
      * Returns an unmodifiable map of the scheduled visit dates to their respective global notes.
      */
-    java.util.Map<seedu.address.model.location.dates.VisitDate, seedu.address.model.location.NoteContent> getNoteMap();
+    Map<VisitDate, NoteContent> getNoteMap();
 
 
 }
