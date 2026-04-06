@@ -12,7 +12,7 @@ public class Phone {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Phone numbers should only contain numbers separated by a space or hyphen, and can start with a plus."
-                    + "\nIt  and must contain at least one number and be shorter than 15 characters.\n"
+                    + "\nIt must contain at least one number and be shorter than 15 characters.\n"
                     + "Valid examples include: '91231234', '9123 1234' and '+65 9124-1234'";
     public static final String VALIDATION_REGEX = "^\\+?(?=.*\\d)[0-9]+([ -][0-9]+)*$";
     public final String value;
