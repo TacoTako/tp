@@ -15,13 +15,11 @@ public class NoteCommand extends Command {
 
     public static final String COMMAND_WORD = "note";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Records or deletes notes in AddressMe "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Records or deletes notes in AddressMe\n"
             + "Parameters: "
-            + "n/NOTE_CONTENT d/DATE (add) | "
-            + "d-/DATE (delete)\n"
+            + "n/NOTE_CONTENT d/DATE (add)\n"
             + "Example: "
-            + COMMAND_WORD + " n/Try the ramen d/2026-03-24 | "
-            + COMMAND_WORD + " d-/2026-03-24";
+            + COMMAND_WORD + " n/Involves lots of walking. Bring extra water bottles. d/2026-03-24";
 
     public static final String MESSAGE_SUCCESS = "New note recorded: %1$s";
 
