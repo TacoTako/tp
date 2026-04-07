@@ -22,6 +22,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditLocationDescriptor;
+import seedu.address.logic.parser.exceptions.EmptyFieldException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.location.dates.VisitDate;
 import seedu.address.model.tag.Tag;
@@ -63,18 +64,37 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editLocationDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
-        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            editLocationDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
+        try {
+            if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+                editLocationDescriptor.setPhone(
+                        ParserUtil.parseOptionalPhone(argMultimap.getValue(PREFIX_PHONE).get()));
+            }
+        } catch (EmptyFieldException e) {
+            editLocationDescriptor.setClearPhone();
         }
-        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            editLocationDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+        try {
+            if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
+                editLocationDescriptor.setEmail(
+                        ParserUtil.parseOptionalEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+            }
+        } catch (EmptyFieldException e) {
+            editLocationDescriptor.setClearEmail();
         }
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editLocationDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        try {
+            if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+                editLocationDescriptor.setAddress(
+                        ParserUtil.parseOptionalAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+            }
+        } catch (EmptyFieldException e) {
+            editLocationDescriptor.setClearAddress();
         }
-        if (argMultimap.getValue(PREFIX_POSTAL_CODE).isPresent()) {
-            editLocationDescriptor.setPostalCode(
-                    ParserUtil.parsePostalCode(argMultimap.getValue(PREFIX_POSTAL_CODE).get()));
+        try {
+            if (argMultimap.getValue(PREFIX_POSTAL_CODE).isPresent()) {
+                editLocationDescriptor.setPostalCode(
+                        ParserUtil.parseOptionalPostalCode(argMultimap.getValue(PREFIX_POSTAL_CODE).get()));
+            }
+        } catch (EmptyFieldException e) {
+            editLocationDescriptor.setClearPostal();
         }
 
         parseVisitDatesForEdit(argMultimap.getAllValues(PREFIX_DATE))

@@ -159,6 +159,19 @@ public class EditCommand extends Command {
             editLocationDescriptor.getTagsToRemove().ifPresent(updatedTags::removeAll);
         }
 
+        if (editLocationDescriptor.isClearPhone) {
+            updatedPhone = Optional.empty();
+        }
+        if (editLocationDescriptor.isClearEmail) {
+            updatedEmail = Optional.empty();
+        }
+        if (editLocationDescriptor.isClearAddress) {
+            updatedAddress = Optional.empty();
+        }
+        if (editLocationDescriptor.isClearPostal) {
+            updatedPostalCode = Optional.empty();
+        }
+
         return new Location(updatedName, updatedPhone, updatedEmail,
                 updatedAddress, updatedPostalCode, updatedVisitDates, updatedTags, locationToEdit.getNotes());
     }
@@ -205,6 +218,12 @@ public class EditCommand extends Command {
         private Set<Tag> tagsToAdd;
         private Set<Tag> tagsToRemove;
 
+        private boolean isClearPhone = false;
+        private boolean isClearEmail = false;
+        private boolean isClearPostal = false;
+        private boolean isClearAddress = false;
+
+
         public EditLocationDescriptor() {}
 
         /**
@@ -223,6 +242,18 @@ public class EditCommand extends Command {
             setTags(toCopy.tags);
             setTagsToAdd(toCopy.tagsToAdd);
             setTagsToRemove(toCopy.tagsToRemove);
+            if (toCopy.isClearPhone) {
+                setClearPhone();
+            }
+            if (toCopy.isClearAddress) {
+                setClearAddress();
+            }
+            if (toCopy.isClearEmail) {
+                setClearEmail();
+            }
+            if (toCopy.isClearPostal) {
+                setClearPostal();
+            }
         }
 
         /**
@@ -233,7 +264,7 @@ public class EditCommand extends Command {
                     name, phone, email, address, postalCode, visitDates, tags,
                     visitDatesToAdd, visitDatesToRemove,
                     tagsToAdd, tagsToRemove
-            );
+            ) || isClearPostal || isClearAddress || isClearPhone || isClearEmail;
         }
 
         public void setName(Name name) {
@@ -333,6 +364,22 @@ public class EditCommand extends Command {
 
         public Optional<Set<Tag>> getTagsToRemove() {
             return (tagsToRemove != null) ? Optional.of(Collections.unmodifiableSet(tagsToRemove)) : Optional.empty();
+        }
+
+        public void setClearPhone() {
+            this.isClearPhone = true;
+        }
+
+        public void setClearEmail() {
+            this.isClearEmail = true;
+        }
+
+        public void setClearAddress() {
+            this.isClearAddress = true;
+        }
+
+        public void setClearPostal() {
+            this.isClearPostal = true;
         }
 
         @Override
