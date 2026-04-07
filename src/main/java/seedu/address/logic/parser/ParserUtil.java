@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.parser.exceptions.EmptyFieldException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.location.Address;
 import seedu.address.model.location.Email;
@@ -79,10 +80,25 @@ public class ParserUtil {
     public static Phone parsePhone(String phone) throws ParseException {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
+
         if (!Phone.isValidPhone(trimmedPhone)) {
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
         return new Phone(trimmedPhone);
+    }
+
+    /**
+     * Parses a {@code String phone} into a {@code Phone}, but potentially throws EmptyFieldException
+     *
+     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws EmptyFieldException if the given {@code phone} is blank.
+     */
+    public static Phone parseOptionalPhone(String phone) throws ParseException, EmptyFieldException {
+        requireNonNull(phone);
+        if (phone.isBlank()) {
+            throw new EmptyFieldException();
+        }
+        return parsePhone(phone);
     }
 
     /**
@@ -94,10 +110,25 @@ public class ParserUtil {
     public static Address parseAddress(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
+
         if (!Address.isValidAddress(trimmedAddress)) {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }
         return new Address(trimmedAddress);
+    }
+
+    /**
+     * Parses a {@code String address} into a {@code Address}, but potentially throws EmptyFieldException
+     *
+     * @throws ParseException if the given {@code address} is invalid.
+     * @throws EmptyFieldException if the given {@code address} is blank.
+     */
+    public static Address parseOptionalAddress(String address) throws ParseException, EmptyFieldException {
+        requireNonNull(address);
+        if (address.isBlank()) {
+            throw new EmptyFieldException();
+        }
+        return parseAddress(address);
     }
 
     /**
@@ -116,6 +147,22 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String email} into a {@code Email}, but potentially throws EmptyFieldException
+     *
+     * @throws ParseException if the given {@code email} is invalid.
+     * @throws EmptyFieldException if the given {@code email} is blank.
+     */
+    public static Email parseOptionalEmail(String email) throws ParseException, EmptyFieldException {
+        requireNonNull(email);
+
+        if (email.isBlank()) {
+            throw new EmptyFieldException();
+        }
+
+        return parseEmail(email);
+    }
+
+    /**
      * Parses a {@code String postalCode} into a {@code PostalCode}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -124,10 +171,26 @@ public class ParserUtil {
     public static PostalCode parsePostalCode(String postalCode) throws ParseException {
         requireNonNull(postalCode);
         String trimmedPostalCode = postalCode.trim();
+
         if (!PostalCode.isValidPostalCode(trimmedPostalCode)) {
             throw new ParseException(PostalCode.MESSAGE_CONSTRAINTS);
         }
         return new PostalCode(trimmedPostalCode);
+    }
+
+    /**
+     * Parses a {@code String postalCode} into a {@code PostalCode}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code postalCode} is invalid.
+     * @throws EmptyFieldException if the given {@code email} is blank.
+     */
+    public static PostalCode parseOptionalPostalCode(String postalCode) throws ParseException, EmptyFieldException {
+        requireNonNull(postalCode);
+        if (postalCode.isBlank()) {
+            throw new EmptyFieldException();
+        }
+        return parsePostalCode(postalCode);
     }
 
     /**
