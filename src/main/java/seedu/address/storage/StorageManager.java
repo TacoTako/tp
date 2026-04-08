@@ -59,6 +59,7 @@ public class StorageManager implements Storage {
 
     @Override
     public Optional<ShortcutMap> readShortcutMap() throws DataLoadingException {
+        logger.fine("Attempting to read shortcut data from file: " + shortcutStorage.getShortcutFilePath());
         return shortcutStorage.readShortcutMap();
     }
 
