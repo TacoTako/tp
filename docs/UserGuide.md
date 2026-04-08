@@ -45,7 +45,6 @@ AddressMe is the app for you!
 ## 1. Quick Start
 
 ---
-
 ### Installation
 
 1. Ensure you have Java `17` or above installed on your machine.<br>
@@ -141,7 +140,7 @@ Alternatively, typing `today` also works!
 
 </div>
 
-- **Recurring Dates:** You can mark locations with recurring dates by starting it with `e-` or `every `!
+- **Recurring Dates:** You can mark locations with recurring dates by starting it with `e-` or `every`!
   <br>`DAY_MONTH` and `DAY_OF_WEEK` accepts the formats specified above.
 
 | **Recurring type** | **Format**                                                                                                                      |
@@ -569,6 +568,13 @@ data") from the old device into the new device's data folder, replacing the file
 
 **A:** Yes. Your shortcuts are saved in shortcut.json in the data folder, and your theme is saved in preferences.json,
 all of which will be restored the next time you launch the app.
+
+**Q:** Can I have the same location listed multiple times?
+
+**A:** No. Duplicates are checked when you add or edit a location. Locations are considered the same by the following:
+- **Postal code and address** if both locations have these fields
+- **Address** if both locations have addresses, but either does not have a postal code
+- **Name** if either location has no address
 
 ### Known Issues
 
