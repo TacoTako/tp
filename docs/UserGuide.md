@@ -1,6 +1,6 @@
 ---
 layout: page
-title: AddressMe User Guide
+title: User Guide
 ---
 
 ---
