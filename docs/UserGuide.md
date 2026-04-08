@@ -373,15 +373,12 @@ upcoming days' itinerary too.
 
 ### `note` - Managing notes
 
-Adds or deletes a note for a specific date.
+Adds or deletes a note for a specific date. Use this with the [planner](#plan---using-the-itinerary-planner) to create reminders for yourself!
 
-Format:
+Formats:
 
-* Add a note: `note n/NOTE d/DATE`
-* Delete a note: `note d-/DATE`
-
-* Use `n/` together with `d/` to save a note for a date.
-* Use `d-/` to delete the note for a date.
+* `note n/NOTE d/DATE` : Adds a note to a specific date
+* `note d-/DATE` : Delete notes on that date
 
 **Examples:**
 
