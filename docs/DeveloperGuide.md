@@ -175,7 +175,7 @@ also implemented as a factory, taking in Strings to return a VisitDate of its ap
 - toString() returns a nicely formatted string displayed to the user
 - toDataString() returns a string that can be re-parsed into the VisitDate, and is used to store data as files.
 
-<img src="images/VisitDateClassDiagram.png" width="550" />
+<img src="images/VisitDateClassDiagram.png"/>
 
 **To note:** EveryDayDate uses the Singleton pattern as every EveryDayDate should be the same.
 It has a public static EverydayDate as an attribute for access.
@@ -184,7 +184,7 @@ It has a public static EverydayDate as an attribute for access.
 The `plan` command updates the user's GUI as well as the headers. This means it needs to pass information 
 to the view controllers. We do this via the CommandResult class.
 
-<img src="images/PlanSequenceDiagram.png" width="600" />
+<img src="images/PlanSequenceDiagram.png"/>
 
 ### Undo/redo feature
 

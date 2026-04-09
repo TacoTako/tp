@@ -45,4 +45,9 @@ public class EveryDayDate extends VisitDate {
     public boolean equals(Object other) {
         return this == other;
     }
+
+    @Override
+    public int hashCode() {
+        return "Everyday".hashCode();
+    }
 }

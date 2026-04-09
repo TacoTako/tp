@@ -115,9 +115,10 @@ These rules apply to all commands that use names (e.g. add, edit).
 
 ### Phone Formats
 
-Can start with `+` and may include spaces or hyphens between digits (e.g. ``91231234`, `9123 1234`, `+65 9124-1234`).
+Can start with `+` and may include spaces or hyphens between digits (e.g. `91231234`, `9123 1234`, `+65 9124-1234`).
 
 Must contain at least one digit and be no longer than 15 characters.
+<div style="page-break-after: always;"></div>
 
 ### Date Formats
 
@@ -286,7 +287,7 @@ Format: `find [KEYWORD] [MORE_KEYWORDS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
 | **Unprefixed keywords** | OR logic on name. `find ramen cafe` will returns locations containing 'Ramen' **OR** 'Cafe'.      |
 | **n/, p/, e/, a/, c/**  | Substring match. `n/Bak` returns 'Bakery', 'Al-Bakar', 'Bak Kut Teh'.                             |
 | **t/TAG**               | Exact match (case-insensitive). Must match the full tag. `t/hal` does **not** match 'halal'.      |
-| **d/DATE**              | Accepts any date format or keyword [supported by AddressMe](#date-formats).                       |
+| **d/DATE**              | Accepts any [non-recurring date format](#date-formats) supported by AddressMe.                    |
 | **Multiple prefixes**   | AND logic. `n/Cafe t/Halal t/Vegetarian` returns cafes that are ALSO tagged halal and vegetarian. |
 | **Multiple dates**      | AND logic. `d/2026-04-01 d/2026-05-01` returns locations with **BOTH** dates on record.           |
 
@@ -493,7 +494,7 @@ Format: `exit`
 | **Find**     | `find [KEYWORD] [MORE_KEYWORDS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/POSTAL_CODE] [t/TAG]… [d/DATE]…`                              | `find n/Cafe t/Halal d/3/4/26`                                            |
 | **List**     | `list`                                                                                                                                    | `list`                                                                    |
 | **Note**     | `note n/NOTE d/DATE` / `note d-/DATE`                                                                                                     | `note n/Bring water d/2026-03-24`, `note d-/2026-03-24`                   |
-| **Plan**     | `plan DATE` or `plan`                                                                                                                     | `plan d/23/9`                                                             |
+| **Plan**     | `plan DATE` or `plan`                                                                                                                     | `plan 23/9`                                                               |
 | **Shortcut** | `shortcut set ALIAS COMMAND_WORD` / `shortcut remove ALIAS` / `shortcut list`                                                             | `shortcut set a add`, `shortcut remove a`, `shortcut list`                |
 | **Theme**    | `theme THEME_NAME`                                                                                                                        | `theme light` or `theme dark`                                             |
 | **Undo**     | `undo`                                                                                                                                    | `undo`                                                                    |
