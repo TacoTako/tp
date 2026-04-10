@@ -37,6 +37,17 @@ public class UniqueLocationList implements Iterable<Location> {
     }
 
     /**
+     * Returns true if the list contains two or more equivalent location as the given argument.
+     */
+    public boolean containsMore(Location toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream()
+                .filter(toCheck::isSameLocation)
+                .count() >= 2;
+    }
+
+
+    /**
      * Adds a location to the list.
      * The location must not already exist in the list.
      */

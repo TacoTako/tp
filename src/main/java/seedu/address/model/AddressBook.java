@@ -114,6 +114,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if two or more location with the same identity as {@code location} exists in the address book.
+     */
+    public boolean hasMoreLocation(Location location) {
+        requireNonNull(location);
+        return locations.containsMore(location);
+    }
+
+    /**
      * Adds a location to the address book.
      * The location must not already exist in the address book.
      */

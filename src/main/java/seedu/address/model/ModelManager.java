@@ -243,6 +243,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasMoreLocation(Location location) {
+        requireNonNull(location);
+        return addressBook.hasMoreLocation(location);
+    }
+
+    @Override
     public void deleteLocation(Location target) {
         addressBook.removeLocation(target);
         hasUnsavedAddressBookChanges = true;

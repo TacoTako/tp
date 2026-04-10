@@ -188,6 +188,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasMoreLocation(Location location) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteLocation(Location target) {
             throw new AssertionError("This method should not be called.");
         }

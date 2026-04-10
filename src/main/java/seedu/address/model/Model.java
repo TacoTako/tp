@@ -171,6 +171,8 @@ public interface Model {
      */
     boolean hasLocation(Location location);
 
+    boolean hasMoreLocation(Location location);
+
     /**
      * Deletes the given location.
      * The location must exist in the address book.

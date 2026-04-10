@@ -105,6 +105,11 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_LOCATION);
         }
 
+        // changing existing location to another via identity fields (postal code, address)
+        if (model.hasMoreLocation(editedLocation)) {
+            throw new CommandException(MESSAGE_DUPLICATE_LOCATION);
+        }
+
         model.setLocation(locationToEdit, editedLocation);
         model.updateFilteredLocationList(PREDICATE_SHOW_ALL_LOCATIONS);
         return new CommandResult(String.format(MESSAGE_EDIT_LOCATION_SUCCESS, Messages.format(editedLocation)));
