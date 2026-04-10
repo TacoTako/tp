@@ -15,7 +15,7 @@ public class PostalCode {
      * Message shown when postal code constraints are violated.
      */
     public static final String MESSAGE_CONSTRAINTS =
-            "Postal code should be alphanumeric.";
+            "Postal code should be alphanumeric and not more than 16 characters.";
 
     /**
      * The postal code value.
@@ -40,7 +40,7 @@ public class PostalCode {
      * @return true if valid, false otherwise.
      */
     public static boolean isValidPostalCode(String test) {
-        return test.matches("[a-zA-Z0-9]+");
+        return test.matches("[a-zA-Z0-9]{1,16}");
     }
 
     /**
