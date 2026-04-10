@@ -49,7 +49,7 @@ public class PlannerCard extends UiPart<Region> {
         this.location = location;
         name.setText(location.getName().fullName);
         // set phone number to exactly 15 characters long
-        phone.setText(UiIconDatabase.PHONE_ICON + String.format("%-15.15s", location.getPhoneString()));
+        phone.setText(UiIconDatabase.PHONE_ICON + location.getPhoneString());
         address.setText(UiIconDatabase.ADDRESS_ICON + location.getAddressString());
         email.setText(UiIconDatabase.MAIL_ICON + location.getEmailString());
         postalCode.setText("Postal Code: " + location.getPostalString());

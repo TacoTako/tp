@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.location.Location;
 import seedu.address.model.location.NoteContent;
@@ -41,6 +43,8 @@ public class PlannerListPanel extends UiPart<Region> {
         plannerListView.setItems(plannerList);
         plannerListView.setCellFactory(listView -> new PlannerListPanel.PlannerListViewCell());
 
+        bindHeaderSize();
+
         if (plannerNote.getValue() != null) {
             showNote(plannerNote.getValue());
         }
@@ -56,6 +60,25 @@ public class PlannerListPanel extends UiPart<Region> {
         } else {
             plannerHeader.setText(date);
         }
+    }
+
+    private void bindHeaderSize() {
+        String[] families = {"Consolas", "Segoe UI Light", "monospace"};
+
+        plannerHeader.fontProperty().bind(
+                Bindings.createObjectBinding(() -> {
+                    double size = Math.max(14, Math.min(48, getRoot().getWidth()
+                            / plannerHeader.getText().length() * 1.6));
+
+                    for (String family : families) {
+                        Font font = Font.font(family, size);
+                        if (font.getFamily().equalsIgnoreCase(family)) {
+                            return font;
+                        }
+                    }
+                    return Font.font(size);
+                }, getRoot().widthProperty(), plannerHeader.textProperty())
+        );
     }
 
     /**
