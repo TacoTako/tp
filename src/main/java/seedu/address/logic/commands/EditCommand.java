@@ -106,7 +106,6 @@ public class EditCommand extends Command {
         }
 
         model.setLocation(locationToEdit, editedLocation);
-        model.updateFilteredLocationList(PREDICATE_SHOW_ALL_LOCATIONS);
         return new CommandResult(String.format(MESSAGE_EDIT_LOCATION_SUCCESS, Messages.format(editedLocation)));
     }
 
