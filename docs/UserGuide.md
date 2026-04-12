@@ -337,6 +337,20 @@ Format:
 | **t+/ or d+/** | Add one or more tags or dates without removing existing ones.           |
 | **t-/ or d-/** | Remove a specific tag or date without affecting others.                 |
 
+**Tags behave as a set (no duplicates, order does not matter).**
+
+* Duplicate tags provided in `add` or `edit` commands are ignored.
+* When using `t-/` or `d-/`, if a specified tag or date does not exist, it is ignored and the command still succeeds.
+
+<div markdown="block" class="alert alert-info">
+
+:information_source: When both `t+` and `t-/` are used in the same command, removal takes precedence.  
+If a tag appears in both `t+/` and `t-/`, it will be removed.
+
+This also applies to existing tags — if a tag already exists and is both added and removed in the same command, it will still be removed.
+
+</div>
+
 <div markdown="block" class="alert alert-warning">
 
 :warning: You cannot mix `t/` with `t+/` or `t-/` in the same command. Similarly, `d/` cannot be combined with `d+/` or
@@ -520,6 +534,7 @@ Format: `exit`
 | **Clear**    | `clear`                                                                                                                                   | `clear`                                                                                      |
 | **Delete**   | `delete INDEX [MORE_INDEXES]...`                                                                                                          | `delete 3` or `delete 1 2 3`                                                                 |
 | **Edit**     | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/POSTAL_CODE] [d/DATE]… [d+/DATE]… [d-/DATE]… [t/TAG]… [t+/TAG]… [t-/TAG]…` | `edit 2 n/Happy Bistro e/contact@happybistro.com d+/e-friday`                                |
+| **Exit**     | `exit`                                                                                                                                    | `exit`                                                                                       |
 | **Find**     | `find [KEYWORD] [MORE_KEYWORDS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/POSTAL_CODE] [t/TAG]… [d/DATE]…`                              | `find n/Cafe t/Halal d/3/4/26`                                                               |
 | **List**     | `list`                                                                                                                                    | `list`                                                                                       |
 | **Note**     | `note n/NOTE d/DATE` / `note d-/DATE`                                                                                                     | `note n/Bring water d/2026-04-12`, `note n/Weekly reminder d/e-Sunday`, `note d-/2026-04-12` |
