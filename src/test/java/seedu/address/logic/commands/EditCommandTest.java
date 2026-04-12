@@ -106,6 +106,7 @@ public class EditCommandTest {
                 new ShortcutMap());
         expectedModel.setLocation(model.getFilteredLocationList().get(0), editedLocation);
 
+        expectedModel.updateFilteredLocationList(Model.PREDICATE_HIDE_ALL_LOCATIONS);
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 

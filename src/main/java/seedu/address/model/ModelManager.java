@@ -258,7 +258,6 @@ public class ModelManager implements Model {
     public void addLocation(Location location) {
         addressBook.addLocation(location);
         hasUnsavedAddressBookChanges = true;
-        updateFilteredLocationList(PREDICATE_SHOW_ALL_LOCATIONS);
     }
 
     @Override
