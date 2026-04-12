@@ -33,7 +33,7 @@ public class ShortcutCommandTest {
 
         ShortcutCommand command = new ShortcutCommand(ShortcutCommand.Action.REMOVE, "a", null);
         assertCommandSuccess(command, model,
-                String.format(ShortcutCommand.MESSAGE_REMOVE_SUCCESS, "a"), expectedModel);
+                String.format(ShortcutCommand.MESSAGE_REMOVE_SUCCESS, "a", "add"), expectedModel);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class ShortcutCommandTest {
         model.setShortcut("a", "add");
 
         ShortcutCommand command = new ShortcutCommand(ShortcutCommand.Action.SET, "a", "edit");
-        assertCommandFailure(command, model, String.format(ShortcutManager.MESSAGE_ALIAS_EXISTS, "a"));
+        assertCommandFailure(command, model, String.format(ShortcutManager.MESSAGE_ALIAS_EXISTS, "a", "add"));
     }
 
     @Test

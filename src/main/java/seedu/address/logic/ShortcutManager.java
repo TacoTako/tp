@@ -19,7 +19,7 @@ public class ShortcutManager {
     public static final String MESSAGE_RESERVED_ALIAS =
             "Alias cannot be the same as an existing command word.";
     public static final String MESSAGE_ALIAS_EXISTS =
-            "Alias already exists: %1$s";
+            "Alias already exists: %1$s -> %2$s";
     public static final String MESSAGE_ALIAS_NOT_FOUND =
             "Alias does not exist: %1$s";
     public static final String MESSAGE_INVALID_COMMAND_WORD =
@@ -82,7 +82,8 @@ public class ShortcutManager {
         String normalizedCommandWord = normalizeAndValidateCommandWord(commandWord);
 
         if (model.hasShortcut(normalizedAlias)) {
-            throw new ParseException(String.format(MESSAGE_ALIAS_EXISTS, normalizedAlias));
+            String existingCommandWord = model.getShortcutMap().getCommandWord(normalizedAlias);
+            throw new ParseException(String.format(MESSAGE_ALIAS_EXISTS, normalizedAlias, existingCommandWord));
         }
 
         model.setShortcut(normalizedAlias, normalizedCommandWord);
@@ -91,7 +92,7 @@ public class ShortcutManager {
     /**
      * Removes an existing shortcut.
      */
-    public void removeShortcut(String alias) throws ParseException {
+    public String removeShortcut(String alias) throws ParseException {
         String normalizedAlias = normalizeToken(alias);
         validateAliasSyntax(normalizedAlias);
 
@@ -99,7 +100,9 @@ public class ShortcutManager {
             throw new ParseException(String.format(MESSAGE_ALIAS_NOT_FOUND, normalizedAlias));
         }
 
+        String removedCommandWord = model.getShortcutMap().getCommandWord(normalizedAlias);
         model.removeShortcut(normalizedAlias);
+        return removedCommandWord;
     }
 
     /**
