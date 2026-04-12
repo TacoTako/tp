@@ -401,7 +401,7 @@ command: description
 Parameters: ...
 Example: ...
 ```
-Multi-purpose commaands:
+Multi-purpose commands:
 ```
 command: description
 Usage:
@@ -745,7 +745,7 @@ testers are expected to do more *exploratory* testing.
 3. Opening the user guide
 
     1. Test case: `help -ug`  
-       Expected: The user guide is opened in a new window or browser.
+       Expected: The link to the user guide is opened in a new window.
 
 4. Invalid usage
 
@@ -903,3 +903,4 @@ Team size: 5
 3. **Support data archiving/hiding.** Old locations that is no longer needed can be archived for the future, so they don't appear but still recoverable.
 4. **Implement a range for date fields in `plan` and `find`**. This can allow users to view plans over a weekend for example, or to find locations over a range too.
 5. **Add an archiving system** to automatically manage past dates, enabling users to filter or hide outdated notes and locations.
+6. **Support multi-word shortcuts.** Shortcuts could expand to full commands such as `shortcut set theme dark dark`, so typing `dark` runs `theme dark`.

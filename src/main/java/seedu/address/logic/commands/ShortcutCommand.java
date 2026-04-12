@@ -26,7 +26,7 @@ public class ShortcutCommand extends Command {
             + "  " + COMMAND_WORD + " list";
 
     public static final String MESSAGE_SET_SUCCESS = "Shortcut set: %1$s -> %2$s";
-    public static final String MESSAGE_REMOVE_SUCCESS = "Shortcut removed: %1$s";
+    public static final String MESSAGE_REMOVE_SUCCESS = "Shortcut removed: %1$s -> %2$s";
 
     private final Action action;
     private final String alias;
@@ -55,8 +55,9 @@ public class ShortcutCommand extends Command {
                         alias.trim().toLowerCase(), commandWord.trim().toLowerCase()));
 
             case REMOVE:
-                shortcutManager.removeShortcut(alias);
-                return new CommandResult(String.format(MESSAGE_REMOVE_SUCCESS, alias.trim().toLowerCase()));
+                String removedCommandWord = shortcutManager.removeShortcut(alias);
+                return new CommandResult(String.format(MESSAGE_REMOVE_SUCCESS,
+                        alias.trim().toLowerCase(), removedCommandWord));
 
             case LIST:
                 return new CommandResult(shortcutManager.formatShortcutList());
