@@ -50,10 +50,26 @@ public class ShortcutManagerTest {
     }
 
     @Test
+    public void addShortcut_duplicateAlias_throwsParseExceptionWithExistingMapping() throws ParseException {
+        shortcutManager.addShortcut("a", "add");
+
+        assertThrows(ParseException.class,
+                String.format(ShortcutManager.MESSAGE_ALIAS_EXISTS, "a", "add"), () ->
+                shortcutManager.addShortcut("a", "edit"));
+    }
+
+    @Test
     public void removeShortcut_missingAlias_throwsParseException() {
         assertThrows(ParseException.class,
                 String.format(ShortcutManager.MESSAGE_ALIAS_NOT_FOUND, "a"), () ->
                 shortcutManager.removeShortcut("a"));
+    }
+
+    @Test
+    public void removeShortcut_existingAlias_returnsRemovedCommandWord() throws ParseException {
+        shortcutManager.addShortcut("a", "add");
+
+        assertEquals("add", shortcutManager.removeShortcut("a"));
     }
 
     @Test
