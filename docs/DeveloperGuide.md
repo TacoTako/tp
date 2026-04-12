@@ -283,14 +283,6 @@ The implementation involves three key components:
    * No changes needed; works seamlessly with the updated predicate
    * Reports filtered results to the UI through the model's filtered location list
 
-**Key Changes:**
-
-| Component | Old Behavior | New Behavior |
-|-----------|-------------|-------------|
-| `StringUtil` | `containsWordIgnoreCase()` only (full word match) | Added `containsSubstringIgnoreCase()` (substring match) |
-| `NameContainsKeywordsPredicate` | Uses `containsWordIgnoreCase()` with `Person` | Uses `containsSubstringIgnoreCase()` with `Location` |
-| Find Command | `find Hans` ❌ matches partial name | `find Han` ✓ matches `Hans Restaurant` |
-
 #### Design Considerations:
 
 **Aspect: Substring vs. Full Word Matching**
@@ -360,15 +352,6 @@ The multi-date support feature allows a `Location` to have multiple visit dates.
 4. **Storage Compatibility**
    - Updated `JsonAdaptedLocation` to handle both the old single `visitDate` field and the new `visitDates` array in the JSON file.
    - This ensures that users can upgrade to the new version without losing their existing data.
-
-**Key Changes:**
-
-| Component | Old Behavior | New Behavior |
-|-----------|-------------|-------------|
-| `Location` | Single `VisitDate` | `Set<VisitDate>` |
-| `FindCommand` | Matches single last visit date | Matches if ANY visit date matches the keyword |
-| `EditCommand` | Overwrites single visit date | Supports cumulative add/remove or overwrite |
-| `Storage` | Saves/loads `visitDate` | Saves/loads `visitDates` (with backward compatibility) |
 
 ### Help Message Consistency
 
