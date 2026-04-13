@@ -298,6 +298,7 @@ Format: `find [KEYWORD] [MORE_KEYWORDS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
 | **d/DATE**              | Accepts any [non-recurring date format](#date-formats) supported by AddressMe.                    |
 | **Multiple prefixes**   | AND logic. `n/Cafe t/Halal t/Vegetarian` returns cafes that are ALSO tagged halal and vegetarian. |
 | **Multiple dates**      | AND logic. `d/2026-04-01 d/2026-05-01` returns locations with **BOTH** dates on record.           |
+| **Mixed logic**         | OR then AND. Unprefixed keywords are OR-ed first, then the result is AND-ed with prefixes.         |
 
 <div markdown="block" class="alert alert-info">
 
@@ -306,6 +307,8 @@ Format: `find [KEYWORD] [MORE_KEYWORDS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
 * The search is case-insensitive. e.g `thai` will match `Thai Pavilion`
 * The order of the keywords does not matter. e.g. `Restaurant Marina` will match `Marina Restaurant`.
 * Each prefixed value (`n/`, `p/`, ect...) is treated as a single search token, even if it contains spaces.
+* **Boolean Precedence:** When mixing search types, unprefixed keywords are grouped together using **OR** logic first. This group is then combined with all other prefixed conditions using **AND** logic.<br>
+  Example: `find ramen cafe t/halal` matches locations that are (containing 'Ramen' **OR** 'Cafe') **AND** (tagged 'halal').
 
 </div>
 
@@ -314,6 +317,7 @@ Format: `find [KEYWORD] [MORE_KEYWORDS] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
 * `find Restaurant` returns all locations with “Restaurant” in the name
 * `find Marina Beach` returns `Marina Park`, `Beach Resort` (OR search for names).
 * `find n/Cafe e/gmail.com` returns all cafes with a Gmail address.
+* `find ramen cafe t/halal` returns all halal ramen joints and halal cafes.
 
 ### `edit` - Editing a location
 

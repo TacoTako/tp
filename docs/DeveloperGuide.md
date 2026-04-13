@@ -253,61 +253,44 @@ The implementation is intentionally limited to one level:
   * Pros: Commands can create a  snapshot at very precise points in execution.
   * Cons: Easier to forget in new commands, and failure handling becomes duplicated across commands.
 
-### Substring Matching in Find Command
+### Advanced Filtering in Find Command
 
 #### Implementation
 
-The substring matching feature for the `find` command enables users to search for locations by matching any substring of their name, rather than requiring full word matches.
+The `find` command has been enhanced to support substring matching alongside complex AND/OR logic across multiple fields (e.g., names, addresses, tags, dates). This enables users to perform highly flexible yet precise searches.
 
 **Design Overview:**
 
-The implementation involves three key components:
+The implementation involves the following key components:
 
 1. **StringUtil** - Low-level utility class that handles substring matching
    * Added new method: `containsSubstringIgnoreCase(String sentence, String substring)`
    * Performs case-insensitive substring matching using `String.toLowerCase().contains()`
    * Validates input (null checks, empty string checks)
 
-2. **NameContainsKeywordsPredicate** - Filtering logic at the model layer
-   * Located in `seedu.address.model.location` package (works with `Location` objects)
-   * Modified `test()` method to use `containsSubstringIgnoreCase()` instead of `containsWordIgnoreCase()`
-   * Maintains OR search logic: multiple keywords return matching locations if ANY keyword matches
-   * Each keyword can now be a substring
+2. **CombinedLocationPredicate** - Filtering logic at the model layer
+   * Located in the `seedu.address.model.location.predicates` package.
+   * Combines multiple field-specific predicates (like `NameContainsKeywordsPredicate`, `TagMatchesKeywordsPredicate`, etc.).
+   * Executes AND logic across all specified prefixes using `Stream::allMatch`. A location only matches if it satisfies all provided prefix conditions simultaneously.
 
-3. **FindCommand** - Command execution layer
-   * No changes needed; works seamlessly with the updated predicate
+3. **Field-specific Predicates (e.g., NameContainsKeywordsPredicate)**
+   * Built for specific attributes. `NameContainsKeywordsPredicate` maintains OR search logic for unprefixed queries: multiple keywords safely return matching locations if ANY keyword substring matches.
+   * Other predicates (like Address, Email, Phone) verify substring matches for their respective fields.
+
+4. **FindCommandParser** - Command execution layer
+   * Works seamlessly with tokenized prefixes (`n/`, `p/`, `e/`, `t/`, `d/`, etc.). 
+   * Assembles all user inputs. Single unstructured queries fallback to OR logic on names.
+   * **Boolean Precedence:** The parser groups all unprefixed keywords into a single `NameContainsKeywordsPredicate` (internal OR logic). This predicate is then bundled with all other field-specific predicates into a `CombinedLocationPredicate`, which evaluates them using **AND logic**. This ensures that unstructured keywords act as a base filter that must be satisfied alongside every specific prefix constraint.
    * Reports filtered results to the UI through the model's filtered location list
 
-**Sequence Flow:**
-
-```
-User Input: "find Jo"
-    ↓
-FindCommandParser → Creates FindCommand with NameContainsKeywordsPredicate(["Jo"])
-    ↓
-FindCommand.execute() → Calls Model.updateFilteredLocationList(predicate)
-    ↓
-NameContainsKeywordsPredicate.test(location) → For each location, checks:
-    - containsSubstringIgnoreCase("John Restaurant", "Jo") → true ✓
-    - containsSubstringIgnoreCase("Jane Cafe", "Jo") → false ✗
-    ↓
-Result: "John Restaurant" is included in filtered list
-```
-
-**Key Changes:**
-
-| Component | Old Behavior | New Behavior |
-|-----------|-------------|-------------|
-| `StringUtil` | `containsWordIgnoreCase()` only (full word match) | Added `containsSubstringIgnoreCase()` (substring match) |
-| `NameContainsKeywordsPredicate` | Uses `containsWordIgnoreCase()` with `Person` | Uses `containsSubstringIgnoreCase()` with `Location` |
-| Find Command | `find Hans` ❌ matches partial name | `find Han` ✓ matches `Hans Restaurant` |
+![Interactions Inside the Logic Component for the `find` Command](images/FindSequenceDiagram.png)
 
 #### Design Considerations:
 
 **Aspect: Substring vs. Full Word Matching**
 
 * **Alternative 1 (current choice):** Substring matching (case-insensitive)
-  * Pros: More flexible search; users can find locations with partial input (e.g., "Jo" matches "John's Restaurant", "Johan's Cafe", "Joust Arena")
+  * Pros: More flexible search; users can find locations with partial input (e.g., "Jo Ha" matches "John's Restaurant", "Johan's Cafe", "Joust Arena", "Hans Cafe")
   * Pros: Simple to implement using `String.contains()`
   * Cons: May return more results than user expects (e.g., "e" matches many location names)
 
@@ -321,12 +304,12 @@ Result: "John Restaurant" is included in filtered list
   * Cons: Higher complexity; potential performance overhead
   * Cons: Poor user experience for non-technical users
 
-**Aspect: Search Scope**
+**Aspect: Multiple Condition Operations (AND/OR Logic)**
 
-* **Current choice:** Search only in location names
-  * Pros: Focused search; reduces noise
-  * Cons: Cannot search by address, phone, email, tags, etc.
-  * Future enhancement: Support for multi-field search (e.g., find by category tags, address, or distance)
+* **Current choice:** AND logic for prefixed keywords, OR logic for globally unprefixed names.
+  * Pros: Provides fine-grained filtering when a tight match is desired (e.g., a "Halal" AND "Cafe" AND "visited on 23/9") while preserving simple, generic OR searches (e.g., "Mcdonalds KFC") out-of-the-box.
+  * Precedence: Explicitly defined as `(Unprefixed Keywords OR group) AND (Prefix 1) AND (Prefix 2) ...`. This allows users to predictably narrow down broad name searches with specific attributes.
+  * Cons: Can be slightly complex for purely non-technical users to grasp the difference between `find A B` (OR) vs `find n/A n/B` (AND).
 
 #### Testing Strategy:
 
@@ -371,15 +354,6 @@ The multi-date support feature allows a `Location` to have multiple visit dates.
 4. **Storage Compatibility**
    - Updated `JsonAdaptedLocation` to handle both the old single `visitDate` field and the new `visitDates` array in the JSON file.
    - This ensures that users can upgrade to the new version without losing their existing data.
-
-**Key Changes:**
-
-| Component | Old Behavior | New Behavior |
-|-----------|-------------|-------------|
-| `Location` | Single `VisitDate` | `Set<VisitDate>` |
-| `FindCommand` | Matches single last visit date | Matches if ANY visit date matches the keyword |
-| `EditCommand` | Overwrites single visit date | Supports cumulative add/remove or overwrite |
-| `Storage` | Saves/loads `visitDate` | Saves/loads `visitDates` (with backward compatibility) |
 
 ### Help Message Consistency
 
